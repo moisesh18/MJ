@@ -1,9 +1,9 @@
 {
-  "name": "frontend",
+  "name": "MJ Doulos",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node /server/server.js",
+    "start": "node ../server/server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
