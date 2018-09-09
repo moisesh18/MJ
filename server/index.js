@@ -21,7 +21,7 @@ app.use('/api/clubs',require('./routes/clubs.routes'));
 app.use('/api/cycles',require('./routes/cycles.routes'));
 
 // Create link to Angular build directory
-app.use(express.static("../dist"));
+//app.use(express.static("../dist"));
 
 
 //OMW server
