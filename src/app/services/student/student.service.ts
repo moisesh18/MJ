@@ -12,7 +12,7 @@ export class StudentService {
   shirt_size : {};
   students : Student[];
   ip = window.location.hostname;
-  readonly URL_API = "http://"+this.ip+':3000/api/students';
+  readonly URL_API = "http://"+this.ip+'/api/students';
   constructor(private http: HttpClient) {
     this.shirt_size = [
       {

@@ -17,10 +17,10 @@ export class EnrollsService {
   clubs : Club[];
   cycles : Cycle[];
   ip = window.location.hostname;
-  readonly URL_API =  "http://"+this.ip+':3000/api/enrolls';
-  readonly URL_STUDENTS = "http://"+this.ip+':3000/api/students';
-  readonly URL_CLUBS = "http://"+this.ip+':3000/api/clubs';
-  readonly URL_CYCLES = "http://"+this.ip+':3000/api/cycles';
+  readonly URL_API =  "http://"+this.ip+'/api/enrolls';
+  readonly URL_STUDENTS = "http://"+this.ip+'/api/students';
+  readonly URL_CLUBS = "http://"+this.ip+'/api/clubs';
+  readonly URL_CYCLES = "http://"+this.ip+'/api/cycles';
   constructor(private http: HttpClient) { 
     this.selected = new Enroll();
   }

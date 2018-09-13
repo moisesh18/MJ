@@ -11,7 +11,7 @@ export class CycleService {
   selectOptions : {};
   plural : Cycle[];
   ip = window.location.hostname;
-  readonly URL_API = "http://"+this.ip+':3000/api/cycles';
+  readonly URL_API = "http://"+this.ip+'/api/cycles';
   constructor(private http: HttpClient) { 
     this.selected = new Cycle();
   }
