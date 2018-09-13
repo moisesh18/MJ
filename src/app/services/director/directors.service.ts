@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import {Director} from '../../models/director';
 import {Student} from '../../models/student';
 import {Club} from '../../models/club';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class DirectorsService {
   students : Student[];
   clubs : Club[];
   ip = window.location.hostname;
-  readonly URL_API = "http://"+this.ip+'/api/directors';
-  readonly URL_STUDENTS = "http://"+this.ip+'/api/students';
-  readonly URL_CLUBS = "http://"+this.ip+'/api/clubs';
+  readonly URL_API = environment.baseUrl + "/api/directors";
+  readonly URL_STUDENTS = environment.baseUrl +"/api/students";
+  readonly URL_CLUBS = environment.baseUrl +"/api/clubs";
 
   constructor(private http: HttpClient) { 
     this.selected = new Director();

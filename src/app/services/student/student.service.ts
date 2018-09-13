@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Student} from '../../models/student';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class StudentService {
   shirt_size : {};
   students : Student[];
   ip = window.location.hostname;
-  readonly URL_API = "http://"+this.ip+'/api/students';
+  readonly URL_API = environment.baseUrl + '/api/students';
   constructor(private http: HttpClient) {
     this.shirt_size = [
       {

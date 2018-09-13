@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Cycle} from '../../models/cycle';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CycleService {
   selectOptions : {};
   plural : Cycle[];
   ip = window.location.hostname;
-  readonly URL_API = "http://"+this.ip+'/api/cycles';
+  readonly URL_API = environment.baseUrl + "api/cycles";
   constructor(private http: HttpClient) { 
     this.selected = new Cycle();
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Club} from '../../models/club';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ClubService {
   selectOptions : {};
   plural : Club[];
   ip = window.location.hostname;
-  readonly URL_API = "http://"+this.ip+'/api/clubs'; 
+  readonly URL_API = environment.baseUrl + "api/clubs"; 
   constructor(private http: HttpClient) { 
     this.selected = new Club();
   }
