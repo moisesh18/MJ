@@ -23,7 +23,7 @@ app.use('/api/cycles',require('./routes/cycles.routes'));
 // Create link to Angular build directory
 //var distDir = __dirname + "/dist/";
 //app.use(express.static(distDir));
-app.use(express.static("/dist"));
+app.use('/',express.static("/dist"));
 console.log(__dirname + "/dist/");
 
 
