@@ -12,12 +12,13 @@ export class ClubService {
   selectOptions : {};
   plural : Club[];
   ip = window.location.hostname;
-  readonly URL_API = environment.baseUrl + "api/clubs"; 
+  readonly URL_API = environment.baseUrl + "api/clubs";
   constructor(private http: HttpClient) { 
     this.selected = new Club();
   }
 
   get(){
+    console.log(this.URL_API);
     return this.http.get(this.URL_API); 
   }
 
