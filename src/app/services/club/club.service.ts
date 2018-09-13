@@ -11,7 +11,7 @@ export class ClubService {
   selectOptions : {};
   plural : Club[];
   ip = window.location.hostname;
-  readonly URL_API = "http://"+this.ip+':3000/api/clubs';
+  readonly URL_API = "http://"+this.ip+':3000/api/clubs'; 
   constructor(private http: HttpClient) { 
     this.selected = new Club();
   }
