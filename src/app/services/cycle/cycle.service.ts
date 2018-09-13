@@ -12,7 +12,7 @@ export class CycleService {
   selectOptions : {};
   plural : Cycle[];
   ip = window.location.hostname;
-  readonly URL_API = environment.baseUrl + "api/cycles";
+  readonly URL_API = environment.baseUrl + "/api/cycles";
   constructor(private http: HttpClient) { 
     this.selected = new Cycle();
   }
