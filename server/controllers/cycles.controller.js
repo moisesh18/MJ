@@ -22,7 +22,7 @@ CycleController.getCycle = async (req,res)=>{
 }
 
 CycleController.getEnrolls = async (req,res)=>{
-    const plural = await mongoose.model('Enroll').find({club:req.params.id})
+    const plural = await mongoose.model('Enrolled').find({club:req.params.id})
                             .populate({path: 'student',select:"first_name last_name"})
                             .populate({path: 'club',select:"name"});
     res.json(plural);

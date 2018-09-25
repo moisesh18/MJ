@@ -16,14 +16,15 @@ export class StudentsByClubComponent implements OnInit {
   constructor(private route: ActivatedRoute, private service: ClubService) { }
 
   ngOnInit() { 
-    this.get();
     this.sub = this.route.params.subscribe(params => {
-        this.id = params['id'];     
-    });
+    this.id = params['id']; 
+    this.get();
+    
+ });
   }
 
   get(){
-    this.service.getEnrolls("5b83753ecbadf31b2c0313e6")
+    this.service.getEnrolls(this.id)
       .subscribe(res => {
         this.service.plural = res as Club[];
       });

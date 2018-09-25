@@ -30,9 +30,9 @@ ClubController.getDirectors = async (req,res)=>{
 
 ClubController.getEnrolls = async (req,res)=>{
     console.log(req.params.id);
-    const plural = await mongoose.model('Enroll').find({club:req.params.id});
+    const plural = await mongoose.model('Enroll').find({club:req.params.id})
+                            .populate({path: 'student'});
     res.json(plural);
-    console.log("hola");
 }
 
 ClubController.edit = async (req,res)=>{
