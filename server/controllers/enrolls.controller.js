@@ -6,7 +6,8 @@ EnrollController.get = async (req,res)=>{
     const single = await Enroll.find()
                             .populate({path: 'student',select:"first_name last_name"})
                             .populate({path: 'club',select: 'name'})
-                            .populate({path: 'cycle',select: 'name'});
+                            .populate({path: 'cycle',select: 'name'})
+                            .limit(500);
     res.json(single);
 }
 
