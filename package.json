@@ -7,9 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --output-path server/dist"
-  },
+    "e2e": "ng e2e"
+    },
   "private": true,
   "dependencies": {
     "@angular/cli": "~6.0.8",
