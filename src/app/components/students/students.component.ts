@@ -17,7 +17,7 @@ declare var edit: boolean;
 export class StudentsComponent implements OnInit {
 
   init: Boolean;
-  constructor(private studentService:StudentService) { }
+  constructor(public studentService:StudentService) { }
 
   ngOnInit() {
     this.getStudents();

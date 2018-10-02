@@ -16,7 +16,7 @@ declare var edit: boolean;
 })
 export class ClubsComponent implements OnInit {
 
-  constructor(private service: ClubService) { }
+  constructor(public service: ClubService) { }
 
   ngOnInit() {
     this.get();

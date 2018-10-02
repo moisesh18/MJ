@@ -24,7 +24,7 @@ export class EnrollsComponent implements OnInit {
   select_student: any;
   select_club: any;
   select_cycles: any;
-  constructor(private service: EnrollsService) { }
+  constructor(public service: EnrollsService) { }
 
   ngOnInit() {
     this.get();

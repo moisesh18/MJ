@@ -39,7 +39,7 @@
               placeholder="Selecciona el estudiante"
               name="student" 
               #student="ngModel" 
-              [(ngModel)]="service.selected.student._id"
+              [(ngModel)]="service.selected.student"
               autocomplete="off"
               >
               <ng-template ng-typetosearch-tmp>
@@ -63,7 +63,7 @@
               placeholder="Selecciona el club"
               name="club" 
               #club="ngModel" 
-              [(ngModel)]="service.selected.club._id"
+              [(ngModel)]="service.selected.club"
               autocomplete="off"
               >
               </ng-select>
@@ -80,7 +80,7 @@
               placeholder="Selecciona el ciclo"
               name="cycle" 
               #cycle="ngModel" 
-              [(ngModel)]="service.selected.cycle._id"
+              [(ngModel)]="service.selected.cycle"
               autocomplete="off"
               >
               </ng-select>

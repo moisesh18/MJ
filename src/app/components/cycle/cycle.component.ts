@@ -16,7 +16,7 @@ declare var edit: boolean;
 })
 export class CycleComponent implements OnInit {
 
-  constructor(private service: CycleService) { }
+  constructor(public service: CycleService) { }
 
   ngOnInit() {
     this.get();

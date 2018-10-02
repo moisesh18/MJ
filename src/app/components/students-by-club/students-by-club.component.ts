@@ -13,7 +13,7 @@ import { Club } from '../../models/club';
 export class StudentsByClubComponent implements OnInit {
   id: any;
   private sub: any;
-  constructor(private route: ActivatedRoute, private service: ClubService) { }
+  constructor(private route: ActivatedRoute, public service: ClubService) { }
 
   ngOnInit() { 
     this.sub = this.route.params.subscribe(params => {

@@ -22,7 +22,7 @@ declare var students: any;
 export class DirectorsComponent implements OnInit {
   select_student: any;
   select_club: any;
-  constructor(private service: DirectorsService) { }
+  constructor(public service: DirectorsService) { }
 
   ngOnInit() {
     this.get();

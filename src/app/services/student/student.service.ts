@@ -11,7 +11,7 @@ export class StudentService {
   selectedStudent: Student;
   careers : {};
   shirt_size : {};
-  students : Student[];
+  public students : Student[];
   ip = window.location.hostname;
   readonly URL_API = environment.baseUrl + '/api/students';
   constructor(private http: HttpClient) {
