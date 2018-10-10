@@ -5,12 +5,12 @@ const app = express();
 const {mongoose} = require('./database');
 
 //Server global settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', 8082);
 
 //Middlewares
-app.use(morgan('dev'));
+app.use(morgan('dev')); //developer logs
 app.use(express.json());
-app.use(cors({origin: '*'}));
+app.use(cors({origin: 'http://localhost:4200'}));
 
 
 //Routes
@@ -20,14 +20,8 @@ app.use('/api/enrolls',require('./routes/enrolls.routes'));
 app.use('/api/clubs',require('./routes/clubs.routes'));
 app.use('/api/cycles',require('./routes/cycles.routes'));
 
-// Create link to Angular build directory
-//var distDir = __dirname + "/dist/";
-//app.use(express.static(distDir));
-app.use("/*",express.static(__dirname + "/dist/")); 
-
 
 //OMW server
-
 app.listen(app.get('port'),()=>{
     console.log('Server on port', app.get('port'));
 });
