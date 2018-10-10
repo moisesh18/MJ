@@ -1,56 +1,46 @@
 <p>works {{id}}</p>
 
 <div class="row">
-        <div class="col s6">
-                <table>
-                  <thead>
-                        <th>Matricula</th>
-                        <th>Nombre</th>
-                        <th>Carrera</th>
-                        <th>Año de la carrera</th>
-                        <th>Fecha Nacimiento</th>
-                        <th>Email</th>
-                        <th>Telefono</th>
-                        <th>Interno</th>
-                        <th>Dormitorio</th>
-                        <th>Desayuno</th>
-                        <th>Comida</th>
-                        <th>Cena</th>
-                        <th>Tipo de sangre</th>
-                        <th>Medicamentos</th>
-                        <th>Alergia</th>
-                        <th>Cirugias Recientes</th>
-                        <th>Operaciones</th>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let single of service.plural">
-                      <td> {{ single.student._id }}</td>
-                      <td> {{ single.student.fullName}}</td>
-                      <td> {{ single.student.career}}</td>
-                      <td> {{ single.student.career_year}}</td>
-                      <td> {{ single.student.birthday}}</td>
-                      <td> {{ single.student.email}}</td>
-                      <td> {{ single.student.phone}}</td>
-                      <td> {{ single.student.resident}}</td>
-                      <td> {{ single.student.residence}}</td>
-                      <td> {{ single.student.breakfast}}</td>
-                      <td> {{ single.student.lunch}}</td>
-                      <td> {{ single.student.dinner}}</td>
-                      <td> {{ single.student.blood_type}}</td>
-                      <td> {{ single.student.drugs}}</td>
-                      <td> {{ single.student.allergy}}</td>
-                      <td> {{ single.student.recent_illness}}</td>
-                      <td> 
-                        <a href="javascript:void(0)" (click)="select(single)">
-                          <i class="material-icons">edit</i>
-                        </a>
-                        <a href="javascript:void(0)" (click)="delete(single._id)">
-                          <i class="material-icons">delete</i>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-            
-              </div>
+    <div class="col">
+      <table class="striped responsive-table">
+        <thead>
+              <th>Matricula</th>
+              <th>Nombre</th>
+              <th>Carrera</th>
+              <th>Año de la carrera</th>
+              <th>Fecha Nacimiento</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Interno</th>
+              <th>Dormitorio</th>
+              <!-- <th>Desayuno</th>
+              <th>Comida</th>
+              <th>Cena</th>
+              <th>Tipo de sangre</th>
+              <th>Medicamentos</th>
+              <th>Alergia</th>
+              <th>Cirugias Recientes</th> -->
+        </thead>
+        <tbody>
+          <tr *ngFor="let single of service.plural">
+            <td> {{ single.student._id }}</td>
+            <td> {{ single.student.fullName}}</td>
+            <td> {{ single.student.career}}</td>
+            <td> {{ single.student.career_year}}</td>
+            <td> {{ single.student.birthday}}</td>
+            <td> {{ single.student.email}}</td>
+            <td> {{ single.student.phone}}</td>
+            <td> {{ single.student.resident}}</td>
+            <td> {{ single.student.residence}}</td>
+            <!-- <td> {{ single.student.breakfast}}</td>
+            <td> {{ single.student.lunch}}</td>
+            <td> {{ single.student.dinner}}</td>
+            <td> {{ single.student.blood_type}}</td>
+            <td> {{ single.student.drugs}}</td>
+            <td> {{ single.student.allergy}}</td>
+            <td> {{ single.student.recent_illness}}</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </div>
