@@ -1,25 +1,43 @@
 <div class="row">
-    <form id= "form" #form="ngForm" class="row">
-        <div class="row">
-          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
-          <div class="input-field col-s12">
-            <input type="text" name="name" #name="ngModel" [(ngModel)]="service.selected.name" placeholder="Nombre del club">
-          </div>
-          <div class="input-field col-s12">
-            <input type="text" name="logo" #logo="ngModel" [(ngModel)]="service.selected.logo" placeholder="Agrega tu logo">
-          </div>
-          <div class="input-field col-s12">
-            <input type="number" name="fees" #fees="ngModel" [(ngModel)]="service.selected.fees" placeholder="¿Cuanto costará la inscripción este periodo?">
-          </div>
-          <div class="input-field col s12">
-            <button class="btn left" (click)="resetForm(form)">Limpiar formulario</button>
-            <button id="submit" type="submit" class="btn right" (click)="add(form)">Guardar</button>
-          </div>
-        </div>
-    </form>
-</div>  
+  <form id="form" #form="ngForm" class="row">
+    <div class="row">
+      <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
+      <div class="input-field col-s12">
+        <input type="text" name="name" #name="ngModel" [(ngModel)]="service.selected.name" placeholder="Nombre del club">
+      </div>
+      <div class="input-field col-s12">
+        <input type="text" name="logo" #logo="ngModel" [(ngModel)]="service.selected.logo" placeholder="Agrega tu logo">
+      </div>
+      <div class="input-field col-s12">
+        <input type="number" name="fees" #fees="ngModel" [(ngModel)]="service.selected.fees" placeholder="¿Cuanto costará la inscripción este periodo?">
+      </div>
+      <div class="input-field col s12">
+        <button class="btn left" (click)="resetForm(form)">Limpiar formulario</button>
+        <button id="submit" type="submit" class="btn right" (click)="add(form)">Guardar</button>
+      </div>
+    </div>
+  </form>
+</div>
 <div class="row">
-  <table>
+  <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
+    <ng-template let-row let-index="index">
+      <td>
+        <p>{{row.name}}</p>
+      </td>
+      <td>
+        {{row.fees}}
+      </td>
+      <td>
+        <a href="javascript:void(0)" (click)="select(row)">
+          <i class="material-icons">edit</i>
+        </a>
+        <a href="javascript:void(0)" (click)="delete(row._id)">
+          <i class="material-icons">delete</i>
+        </a>
+      </td>
+    </ng-template>
+  </ngx-table>
+  <!-- <table>
     <thead>
       <th>Nombre</th>
       <th>Costo de inscripción</th>
@@ -38,10 +56,6 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
-</div>  
-  
-  
-  
-  
+</div>

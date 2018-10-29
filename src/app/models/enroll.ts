@@ -1,15 +1,15 @@
 export class Enroll {
 
-    constructor(){
+    constructor() {
         this._id = null;
-        this.student = "";
-        this.club = "";
+        this.student = {};
+        this.club = {};
         this.fees = null;
-        this.cycle = "";
+        this.cycle = {};
     }
-    _id : String;
-    student: String;
-    club : String;
+    _id: String;
+    student: any;
+    club: any;
     fees: Number;
-    cycle : String;
+    cycle: any;
 }

@@ -27,6 +27,7 @@
               "src/assets/css/materialize.min.css",
               "src/assets/fonts/material-icons/material-icons.css",
               "node_modules/@ng-select/ng-select/themes/material.theme.css",
+              "node_modules/ngx-easy-table/style.css",
               "src/styles.css"
             ],
             "scripts": [
@@ -36,12 +37,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,

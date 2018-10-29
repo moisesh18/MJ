@@ -7,13 +7,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { DirectorsComponent } from './components/directors/directors.component';
 import { ClubsComponent } from './components/clubs/clubs.component';
 import { CycleComponent } from './components/cycle/cycle.component'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EnrollsComponent } from './components/enrolls/enrolls.component';
 import { StudentsByClubComponent } from './components/students-by-club/students-by-club.component';
+import { TableModule } from 'ngx-easy-table';
 
 @NgModule({
   declarations: [
@@ -36,33 +37,34 @@ import { StudentsByClubComponent } from './components/students-by-club/students-
     RouterModule.forRoot([
       {
         path: '',
-        component:HomeComponent
+        component: HomeComponent
       },
       {
         path: 'students',
-        component:StudentsComponent
+        component: StudentsComponent
       },
       {
         path: 'directors',
-        component:DirectorsComponent
+        component: DirectorsComponent
       },
       {
         path: 'clubs',
-        component:ClubsComponent
+        component: ClubsComponent
       },
       {
         path: 'clubs/:id',
-        component:StudentsByClubComponent
+        component: StudentsByClubComponent
       },
       {
         path: 'cycles',
-        component:CycleComponent
+        component: CycleComponent
       },
       {
         path: 'enrolls',
-        component:EnrollsComponent
+        component: EnrollsComponent
       }
-    ])
+    ]),
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

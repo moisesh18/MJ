@@ -1,6 +1,6 @@
 export class Director {
 
-    constructor(){
+    constructor() {
         this._id = null;
         this.job = "";
         this.student = "";
@@ -9,6 +9,6 @@ export class Director {
 
     _id: String;
     job: String;
-    student: String;
-    club: String;
+    student: any;
+    club: any;
 }
