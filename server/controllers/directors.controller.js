@@ -79,20 +79,45 @@ DirectorController.getDirector = async (req, res) => {
     });
 }
 
+
+DirectorController.prueba = async (req, res) => {
+    var director = {
+        password: null
+    }
+    //$2a$10$eIFKiU.aulBmFqrhIFWfQOAsmas1m2edLSkK1RU2vkbxoyhKV4IMG
+    //test
+    await bcrypt.hash("moises", null, null, function (err, hash) {
+        if (err) return next(err);
+        director.password = hash;
+    });
+    await Director.findByIdAndUpdate("5bf1e3b45bf70e8bab9c5646", { $set: director }, { runValidators: true });
+    res.json({
+        status: 'Updated'
+    });
+}
+
+
 DirectorController.editDirector = async (req, res) => {
     const { id } = req.params;
+    console.log(req.body);
     var director = {
         job: req.body.job,
         password: null,
         student: req.body.student,
         club: req.body.club
     }
-    await bcrypt.hash(req.body.password, null, null, function (err, hash) {
-        if (err) return next(err);
-        console.log(hash);
-        director.password = hash;
-    });
-    await Director.findByIdAndUpdate(id, { $set: director }, { runValidators: true });
+    if (req.body.password != undefined) {
+        console.log("SI HAY ALGO |" + req.body.password + "| TF");
+        await bcrypt.hash(req.body.password, null, null, function (err, hash) {
+            if (err) return next(err);
+            director.password = hash;
+            console.log(director.password);
+        });
+    } else {
+        console.log("SI NO HAY NADA");
+        delete director.password;
+    }
+    await Director.findByIdAndUpdate(id, { $set: director }, { runValidators: false });
     res.json({
         status: 'Updated'
     });

@@ -83,12 +83,15 @@ export class DirectorsComponent implements OnInit {
     }
 
     add(form?: NgForm) {
-        console.log(form.value.password, form.value.password2);
-        if (form.value.password != form.value.password2) {
+        if (form.value.password != "" && form.value.password != form.value.password2) {
             M.toast({ html: 'Las contraseñas no son iguales' });
             return false;
         }
         if (form.value._id) {
+            console.log(form.value.password);
+            if (form.value.password == "") {
+                delete form.value.password;
+            }
             this.service.put(form.value)
                 .subscribe(res => {
                     this.resetForm(form);

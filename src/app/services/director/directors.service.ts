@@ -9,86 +9,87 @@ import { NgForm } from '@angular/forms';
 
 declare var M: any;
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DirectorsService {
 
-  selected: Director;
-  selectOptions: {};
-  directors: Director[];
-  students: Student[];
-  clubs: Club[];
-  ip = window.location.hostname;
-  readonly URL_API = environment.baseUrl + "/api/directors";
-  readonly URL_STUDENTS = environment.baseUrl + "/api/students";
-  readonly URL_CLUBS = environment.baseUrl + "/api/clubs";
+    selected: Director;
+    selectOptions: {};
+    directors: Director[];
+    students: Student[];
+    clubs: Club[];
+    currentUser: "hola";
+    ip = window.location.hostname;
+    readonly URL_API = environment.baseUrl + "/api/directors";
+    readonly URL_STUDENTS = environment.baseUrl + "/api/students";
+    readonly URL_CLUBS = environment.baseUrl + "/api/clubs";
 
-  constructor(private router: Router, private http: HttpClient) {
-    this.selected = new Director();
-  }
+    constructor(private router: Router, private http: HttpClient) {
+        this.selected = new Director();
+    }
 
-  authenticate(loginData) {
-    return this.http.post(this.URL_API + "/authenticate", loginData);
-  }
+    authenticate(loginData) {
+        return this.http.post(this.URL_API + "/authenticate", loginData);
+    }
 
-  me() {
-    return this.http.post(this.URL_API + "/me", {});
-  }
+    me() {
+        return this.http.post(this.URL_API + "/me", {});
+    }
 
-  doLogout() {
-    this.router.navigate(["/"]);
-    window.localStorage.removeItem('token');
-  }
+    doLogout() {
+        this.router.navigate(["/"]);
+        window.localStorage.removeItem('token');
+    }
 
-  doLogin(form?: NgForm) {
-    this.authenticate(form.value)
-      .subscribe((res: any) => {
-        if (res.success) {
-          this.setToken(res.token);
-          this.router.navigate(["/clubs"]);
-        }
-        M.toast({ html: res.message });
-      });
-  }
+    doLogin(form?: NgForm) {
+        this.authenticate(form.value)
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.setToken(res.token);
+                    this.router.navigate(["/clubs"]);
+                }
+                M.toast({ html: res.message });
+            });
+    }
 
-  setToken(token) {
-    window.localStorage.setItem('token', token);
-  }
+    setToken(token) {
+        window.localStorage.setItem('token', token);
+    }
 
-  removeToken() {
-    window.localStorage.removeItem('token');
-  }
+    removeToken() {
+        window.localStorage.removeItem('token');
+    }
 
-  isLoggedIn() {
-    return !!window.localStorage.getItem('token');
-  }
+    isLoggedIn() {
+        return !!window.localStorage.getItem('token');
+    }
 
-  getToken() {
-    return window.localStorage.getItem('token');
-  }
+    getToken() {
+        return window.localStorage.getItem('token');
+    }
 
-  getStudents() {
-    return this.http.get(this.URL_STUDENTS);
-  }
+    getStudents() {
+        return this.http.get(this.URL_STUDENTS);
+    }
 
-  getClubs() {
-    return this.http.get(this.URL_CLUBS);
-  }
+    getClubs() {
+        return this.http.get(this.URL_CLUBS);
+    }
 
-  get() {
-    return this.http.get(this.URL_API);
-  }
+    get() {
+        return this.http.get(this.URL_API);
+    }
 
-  post(single: Director) {
-    return this.http.post(this.URL_API, single);
-  }
+    post(single: Director) {
+        return this.http.post(this.URL_API, single);
+    }
 
-  put(single: Director) {
-    return this.http.put(this.URL_API + `/${single._id}`, single);
-  }
+    put(single: Director) {
+        return this.http.put(this.URL_API + `/${single._id}`, single);
+    }
 
-  delete(_id: string) {
-    return this.http.delete(this.URL_API + `/${_id}`);
-  }
+    delete(_id: string) {
+        return this.http.delete(this.URL_API + `/${_id}`);
+    }
 
 }

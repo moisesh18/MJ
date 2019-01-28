@@ -27,6 +27,10 @@ export class ClubsComponent implements OnInit {
         }
         this.columns = [
             [{
+                title: 'ID',
+                field: '_id',
+                sortable: true
+            }, {
                 title: 'Nombre',
                 field: 'name',
                 sortable: true

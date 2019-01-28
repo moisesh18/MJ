@@ -58,7 +58,7 @@ import { AuthGuard } from './guards/auth-guard';
                 canActivate: [AuthGuard]
             },
             {
-                path: 'clubs/:id',
+                path: 'my-club',
                 component: StudentsByClubComponent,
                 canActivate: [AuthGuard]
             },

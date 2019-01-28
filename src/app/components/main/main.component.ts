@@ -5,23 +5,22 @@ import { Router } from '@angular/router';
 
 
 declare var M: any;
-declare var jquery:any;
-declare var $ :any;
+declare var $: any;
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
 
-  constructor(public router: Router, public service: DirectorsService) { }
+    constructor(public router: Router, public AuthService: DirectorsService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  doLogin(form?: NgForm){
-    this.service.doLogin(form);
-  }
+    doLogin(form?: NgForm) {
+        this.AuthService.doLogin(form);
+    }
 
 }

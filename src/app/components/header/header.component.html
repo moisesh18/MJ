@@ -1,20 +1,21 @@
 <header>
-  <nav class="light-blue darken-4">
-    <div class="container">
-      <div class="nav-wrapper">
-        <a routerLink="/" class="brand-logo">
-          <img src="assets/img/mj-logo.png" alt="logo" class="responsive-img logo">
-        </a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a routerLink="/students" *ngIf="_AuthService.isLoggedIn()">Estudiantes</a></li>
-          <li><a routerLink="/directors" *ngIf="_AuthService.isLoggedIn()">Directiva</a></li>
-          <li><a routerLink="/clubs" *ngIf="_AuthService.isLoggedIn()">Clubes</a></li>
-          <li><a routerLink="/cycles" *ngIf="_AuthService.isLoggedIn()">Ciclos</a></li>
-          <li><a routerLink="/enrolls" *ngIf="_AuthService.isLoggedIn()">Inscritos</a></li>
-          <li><a routerLink="/login" *ngIf="!_AuthService.isLoggedIn()">Login</a></li>
-          <li><a (click)="doLogout();" *ngIf="_AuthService.isLoggedIn()">Logout</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+    <nav class="light-blue darken-4">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a routerLink="/" class="brand-logo">
+                    <img src="assets/img/mj-logo.png" alt="logo" class="responsive-img logo">
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a routerLink="/students" *ngIf="AuthService.isLoggedIn()">Estudiantes</a></li>
+                    <li><a routerLink="/directors" *ngIf="AuthService.isLoggedIn()">Directiva</a></li>
+                    <li><a routerLink="/clubs" *ngIf="AuthService.isLoggedIn()">Clubes</a></li>
+                    <li><a routerLink="/my-club" *ngIf="AuthService.isLoggedIn()">Mi club</a></li>
+                    <li><a routerLink="/cycles" *ngIf="AuthService.isLoggedIn()">Ciclos</a></li>
+                    <li><a routerLink="/enrolls" *ngIf="AuthService.isLoggedIn()">Inscritos</a></li>
+                    <li><a routerLink="/login" *ngIf="!AuthService.isLoggedIn()">Login</a></li>
+                    <li><a (click)="doLogout();" *ngIf="AuthService.isLoggedIn()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>

@@ -13,7 +13,6 @@ declare var $: any;
     providers: [StudentService]
 })
 export class StudentsComponent implements OnInit {
-    data: any;
     columns: any;
     constructor(public service: StudentService) {
         var self = this;

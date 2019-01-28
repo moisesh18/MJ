@@ -1,12 +1,14 @@
-<h3>Por favor, inicia sesion</h3>
-<form  id="form"  #form="ngForm" action="">
-  <div class="row">
-    <div class="input-field">
-        <input class="form-control" type="text" name="username" #username="ngModel" [(ngModel)]="service.selected.username"  autocomplete="username" placeholder="Matricula">
+<h3>Iniciar sesión</h3>
+<form id="form" #form="ngForm" action="">
+    <div class="row">
+        <div class="col-sm-12 input-field">
+            <input class="form-control" type="text" name="username" #username="ngModel" [(ngModel)]="AuthService.selected.username"
+                autocomplete="username" placeholder="Matricula">
+        </div>
+        <div class="col-sm-12 input-field">
+            <input class="form-control" type="password" name="password" #password="ngModel" autocomplete="current-password"
+                [(ngModel)]="AuthService.selected.password" placeholder="Contraseña">
+            <button id="submit" type="submit" class="btn right" (click)="doLogin(form)">Log In</button>
+        </div>
     </div>
-    <div class="input-field">
-      <input class="form-control" type="password" name="password" #password="ngModel" autocomplete="current-password" [(ngModel)]="service.selected.password" placeholder="Contraseña">
-    </div>
-    <button id="submit" type="submit" class="btn right" (click)="doLogin(form)">Log In</button>
-  </div>
 </form>
