@@ -3,52 +3,68 @@ const Student = require('../models/student');
 const ClubController = {};
 const mongoose = require('mongoose');
 
-ClubController.get = async (req,res)=>{
+ClubController.get = async (req, res) => {
     const clubs = await Club.find();
     res.json(clubs);
 }
 
-ClubController.create = async (req,res) => {
-    const director = new Club(req.body);
-    await director.save();
-    res.json({
-        status: 'Saved'
-    });
+ClubController.create = async (req, res) => {
+    const club = new Club(req.body);
+    if (Validations(req.body)) {
+        await club.save(function (err) {
+            if (err) {
+                res.send("El club ya existe...");
+            } else {
+                res.json({
+                    status: 'Saved'
+                });
+            }
+        });
+    } else {
+        res.send("Revisa los campos...");
+    }
 };
 
-ClubController.getClub = async (req,res)=>{
-    await Club.find(function (err,club){
+function Validations(obj) {
+    for (var o in obj) {
+        if (obj[o] == "" || !obj[o]) return false;
+    }
+    return true;
+}
+
+ClubController.getClub = async (req, res) => {
+    await Club.find(function (err, club) {
         res.json(club);
     });
 }
 
-ClubController.getDirectors = async (req,res)=>{
-    const plural = await mongoose.model('Director').find({club:req.params.id})
-                            .populate({path: 'student'});
+ClubController.getDirectors = async (req, res) => {
+    const plural = await mongoose.model('Director').find({ club: req.params.id })
+        .populate({ path: 'student' });
     res.json(plural);
 }
 
-ClubController.getEnrolls = async (req,res)=>{
-    console.log(req.params.id);
-    const plural = await mongoose.model('Enroll').find({club:req.params.id})
-                            .populate({path: 'student'});
+ClubController.getEnrolls = async (req, res) => {
+    const plural = await mongoose.model('Enroll').find({ club: req.params.id })
+        .populate({ path: 'student' });
     res.json(plural);
 }
 
-ClubController.edit = async (req,res)=>{
+ClubController.edit = async (req, res) => {
     const { id } = req.params;
-    const club = {    
+    const club = {
         name: req.body.name,
         logo: req.body.logo,
-        fees: req.body.fees
+        fees: req.body.fees,
+        type: req.body.type
     }
-    await Club.findByIdAndUpdate(id, {$set: club},{new:true});
+    await Club.findByIdAndUpdate(id, { $set: club }, { new: true });
     res.json({
         status: 'Updated'
     });
 }
 
-ClubController.delete = async (req,res)=>{
+ClubController.delete = async (req, res) => {
     await Club.findByIdAndRemove(req.params.id);
     res.json({
         status: 'Removed'

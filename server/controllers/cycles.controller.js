@@ -9,11 +9,27 @@ CycleController.get = async (req,res)=>{
 
 CycleController.create = async (req,res) => {
     const cycle = new Cycle(req.body);
-    await cycle.save();
-    res.json({
-        status: 'Saved'
-    });
+    if (Validations(req.body)) {
+      await cycle.save(function (err) {
+        if (err) {
+          res.send("El usuario ya existe...");
+        } else {
+          res.json({
+            status: 'Saved'
+          });
+        }
+      });
+    } else {
+      res.send("Revisa los campos...");
+    }
 };
+
+function Validations(obj) {
+  for (var o in obj) {
+    if (obj[o] == "" || !obj[o]) return false;
+  }
+  return true;
+}
 
 CycleController.getCycle = async (req,res)=>{
     await Cycle.find(function (err,cycle){

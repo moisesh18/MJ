@@ -21,11 +21,27 @@ EnrollController.get = async (req, res) => {
 
 EnrollController.create = async (req, res) => {
   const single = new Enroll(req.body);
-  await single.save();
-  res.json({
-    status: 'Saved'
-  });
+  if (Validations(req.body)) {
+    await single.save(function (err) {
+      if (err) {
+        res.send("El usuario ya existe...");
+      } else {
+        res.json({
+          status: 'Saved'
+        });
+      }
+    });
+  } else {
+    res.send("Revisa los campos...");
+  }
 };
+
+function Validations(obj) {
+  for (var o in obj) {
+    if (obj[o] == "" || !obj[o]) return false;
+  }
+  return true;
+}
 
 EnrollController.edit = async (req, res) => {
   const {

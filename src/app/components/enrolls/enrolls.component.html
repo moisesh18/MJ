@@ -1,90 +1,68 @@
 <div class="row">
-  <form id="form" #form="ngForm" class="row">
-    <div class="row">
-      <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
-      <div class="input-field col-s12">
-        <ng-select [items]="select_student" [virtualScroll]="true" bindLabel="fullName" bindValue="_id" placeholder="Selecciona el estudiante"
-          name="student" #student="ngModel" [(ngModel)]="service.selected.student._id" autocomplete="off">
-          <ng-template ng-typetosearch-tmp>
-            <div class="ng-option disabled">
-              Escribe la matricula o el nombre del empleado...
+    <form id="form" #form="ngForm" class="row">
+        <div class="row">
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
+            <div class="input-field col-sm-12">
+                <ng-select [items]="select_student" [virtualScroll]="true" bindLabel="fullName" bindValue="_id"
+                    placeholder="Selecciona el estudiante" name="student" #student="ngModel" [(ngModel)]="service.selected.student._id"
+                    autocomplete="off">
+                    <ng-template ng-typetosearch-tmp>
+                        <div class="ng-option disabled">
+                            Escribe la matricula o el nombre del empleado...
+                        </div>
+                    </ng-template>
+                    <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+                        <div class="ng-option disabled">
+                            "{{searchTerm}}" no se ha inscrito en ningun club.
+                        </div>
+                    </ng-template>
+                </ng-select>
             </div>
-          </ng-template>
-          <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
-            <div class="ng-option disabled">
-              "{{searchTerm}}" no se ha inscrito en ningun club.
+            <div class="input-field col-sm-12">
+                <ng-select [items]="select_club" [virtualScroll]="true" bindLabel="name" bindValue="_id" placeholder="Selecciona el club"
+                    name="club" #club="ngModel" [(ngModel)]="service.selected.club._id" autocomplete="off">
+                </ng-select>
             </div>
-          </ng-template>
-        </ng-select>
-      </div>
-      <div class="input-field col-s12">
-        <ng-select [items]="select_club" [virtualScroll]="true" bindLabel="name" bindValue="_id" placeholder="Selecciona el club"
-          name="club" #club="ngModel" [(ngModel)]="service.selected.club._id" autocomplete="off">
-        </ng-select>
-      </div>
-      <div class="input-field col-s12">
-        <input type="number" name="fees" #fees="ngModel" [(ngModel)]="service.selected.fees" placeholder="Pago de inscripcion"
-          autocomplete="off">
-      </div>
-      <div class="input-field col-s12">
-        <ng-select [items]="select_cycles" [virtualScroll]="true" bindLabel="name" bindValue="_id" placeholder="Selecciona el ciclo"
-          name="cycle" #cycle="ngModel" [(ngModel)]="service.selected.cycle._id" autocomplete="off">
-        </ng-select>
-      </div>
-      <div class="input-field col s12">
-        <button class="btn left" (click)="resetForm(form)">Limpiar formulario</button>
-        <button id="submit" type="submit" class="btn right" (click)="add(form)">Guardar</button>
-      </div>
-    </div>
-  </form>
+            <div class="input-field col-sm-12">
+                <input type="number" name="fees" #fees="ngModel" [(ngModel)]="service.selected.fees" placeholder="Pago de inscripcion"
+                    autocomplete="off">
+            </div>
+            <div class="input-field col-sm-12">
+                <ng-select [items]="select_cycles" [virtualScroll]="true" bindLabel="name" bindValue="_id" placeholder="Selecciona el ciclo"
+                    name="cycle" #cycle="ngModel" [(ngModel)]="service.selected.cycle._id" autocomplete="off">
+                </ng-select>
+            </div>
+            <div class="input-field col-sm-12">
+                <button class="btn left" (click)="resetForm(form)">Limpiar formulario</button>
+                <button id="submit" type="submit" class="btn right" (click)="add(form)">Guardar</button>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="row">
-  <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
-    <ng-template let-row let-index="index">
-      <td>
-        <p>{{row.student.fullName}}</p>
-      </td>
-      <td>
-        {{row.club.name}}
-      </td>
-      <td>
-        {{row.fees}}
-      </td>
-      <td>
-        {{row.cycle.name}}
-      </td>
-      <td>
-        <a href="javascript:void(0)" (click)="select(row)">
-          <i class="material-icons">edit</i>
-        </a>
-        <a href="javascript:void(0)" (click)="delete(row._id)">
-          <i class="material-icons">delete</i>
-        </a>
-      </td>
-    </ng-template>
-  </ngx-table>
-  <!-- <table>
-    <thead>
-      <th>Alumno</th>
-      <th>Club</th>
-      <th>Inscripcion</th>
-      <th>Ciclo</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let single of service.plural">
-        <td> {{ single.student.fullName}}</td>
-        <td> {{ single.club.name}}</td>
-        <td> {{ single.fees }}</td>
-        <td> {{ single.cycle.name}}</td>
-        <td>
-          <a href="javascript:void(0)" (click)="select(single)">
-            <i class="material-icons">edit</i>
-          </a>
-          <a href="javascript:void(0)" (click)="delete(single._id)">
-            <i class="material-icons">delete</i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
+    <table class="bTable" data-side-pagination="client" data-pagination="true" data-show-pagination-switch="true"></table>
+    <!-- <table>
+        <thead>
+            <th>Alumno</th>
+            <th>Club</th>
+            <th>Inscripcion</th>
+            <th>Ciclo</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let single of service.plural">
+                <td> {{ single.student.fullName}}</td>
+                <td> {{ single.club.name}}</td>
+                <td> {{ single.fees }}</td>
+                <td> {{ single.cycle.name}}</td>
+                <td>
+                    <a href="javascript:void(0)" (click)="select(single)">
+                        <i class="material-icons">edit</i>
+                    </a>
+                    <a href="javascript:void(0)" (click)="delete(single._id)">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table> -->
 </div>

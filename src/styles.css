@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+.ng-input input{
+    margin-bottom:-10px !important;
+}
+
+.bootstrap-table{
+    width:100%;
+}

@@ -8,11 +8,27 @@ StudentController.getStudents = async (req,res)=>{
 
 StudentController.createStudent = async (req,res) => {
     const student = new Student(req.body);
-    await student.save();
-    res.json({
-        status: 'Saved'
-    });
+    if (Validations(req.body)) {
+        await student.save(function (err) {
+        if (err) {
+            res.send("El usuario ya existe...");
+        } else {
+            res.json({
+            status: 'Saved'
+            });
+        }
+        });
+    } else {
+        res.send("Revisa los campos...");
+    }
 };
+
+function Validations(obj) {
+    for (var o in obj) {
+    if (obj[o] == "" || !obj[o]) return false;
+    }
+    return true;
+}
 
 StudentController.getStudent = async (req,res)=>{
     const student = await Student.findById(req.params.id);
