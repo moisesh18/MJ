@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Student } from '../../models/student';
 import { ClubService } from '../../services/club/club.service';
-import { DirectorsService } from '../../services/director/directors.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { StudentService } from '../../services/student/student.service';
-import { Club } from '../../models/club';
 
 declare var M: any;
 declare var $: any;
@@ -17,10 +16,9 @@ declare var $: any;
 })
 export class StudentsByClubComponent implements OnInit {
     id: any;
-    private sub: any;
     columns: any;
     currentUser: any;
-    constructor(private route: ActivatedRoute, public service: ClubService, public AuthService: DirectorsService) {
+    constructor(private route: ActivatedRoute, public service: ClubService, public AuthService: AuthService) {
         var self = this;
         this.columns = [
             [{
@@ -71,17 +69,14 @@ export class StudentsByClubComponent implements OnInit {
         ];
     }
 
-    ngOnInit() {
-        this.AuthService.me()
-            .subscribe(res => {
-                this.currentUser = res;
-                this.get();
-            });
+    async ngOnInit() {
+        await this.AuthService.CurrentUser();
+        this.get();
     }
 
     get() {
         $('.bTable').bootstrapTable("destroy");
-        this.service.getEnrolls(this.currentUser.club)
+        this.service.getEnrolls(this.AuthService.user.club)
             .subscribe(res => {
                 $('.bTable').bootstrapTable({
                     columns: this.columns,

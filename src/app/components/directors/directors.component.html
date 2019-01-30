@@ -3,7 +3,14 @@
         <div class="row">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
             <div class="input-field col-sm-12">
-                <input type="text" name="job" #job="ngModel" [(ngModel)]="service.selected.job" placeholder="Puesto de trabajo">
+                <ng-select [virtualScroll]="true" name="job" #job="ngModel" [(ngModel)]="service.selected.job"
+                    autocomplete="off" placeholder="Selecciona el puesto">
+                    <ng-option [value]="'admin'">Administrador</ng-option>
+                    <ng-option [value]="'director'">Director</ng-option>
+                    <ng-option [value]="'secretario'">Secretario</ng-option>
+                    <ng-option [value]="'tesorero'">Tesorero</ng-option>
+                    <ng-option [value]="'inscripciones'">Inscripciones</ng-option>
+                </ng-select>
             </div>
             <div class="input-field col-sm-12">
                 <ng-select [items]="select_student" [virtualScroll]="true" bindLabel="student" bindValue="_id"

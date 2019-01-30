@@ -5,3 +5,7 @@
 .bootstrap-table{
     width:100%;
 }
+
+.ng-select .ng-select-container:after{
+    padding:1px;
+}

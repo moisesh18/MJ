@@ -1,24 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Director } from '../../models/director';
-import { Student } from '../../models/student';
-import { Club } from '../../models/club';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 
 declare var M: any;
 @Injectable({
     providedIn: 'root'
 })
 export class DirectorsService {
-
     selected: Director;
-    selectOptions: {};
-    directors: Director[];
-    students: Student[];
-    clubs: Club[];
-    currentUser: "hola";
     ip = window.location.hostname;
     readonly URL_API = environment.baseUrl + "/api/directors";
     readonly URL_STUDENTS = environment.baseUrl + "/api/students";
@@ -26,46 +17,6 @@ export class DirectorsService {
 
     constructor(private router: Router, private http: HttpClient) {
         this.selected = new Director();
-    }
-
-    authenticate(loginData) {
-        return this.http.post(this.URL_API + "/authenticate", loginData);
-    }
-
-    me() {
-        return this.http.post(this.URL_API + "/me", {});
-    }
-
-    doLogout() {
-        this.router.navigate(["/"]);
-        window.localStorage.removeItem('token');
-    }
-
-    doLogin(form?: NgForm) {
-        this.authenticate(form.value)
-            .subscribe((res: any) => {
-                if (res.success) {
-                    this.setToken(res.token);
-                    this.router.navigate(["/clubs"]);
-                }
-                M.toast({ html: res.message });
-            });
-    }
-
-    setToken(token) {
-        window.localStorage.setItem('token', token);
-    }
-
-    removeToken() {
-        window.localStorage.removeItem('token');
-    }
-
-    isLoggedIn() {
-        return !!window.localStorage.getItem('token');
-    }
-
-    getToken() {
-        return window.localStorage.getItem('token');
     }
 
     getStudents() {

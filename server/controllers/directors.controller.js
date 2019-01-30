@@ -52,7 +52,8 @@ DirectorController.authenticate = async (req, res) => {
             if (req.body.password && user.comparePasswords(req.body.password)) {
                 var token = jwt.sign({
                     username: user.student,
-                    club: user.club
+                    club: user.club,
+                    job: user.job
                 }, secret, {
                         expiresIn: '24h'
                     });

@@ -118,13 +118,11 @@ export class DirectorsComponent implements OnInit {
     getSelect() {
         this.service.getStudents()
             .subscribe(res => {
-                this.service.students = res as Student[];
-                this.select_student = this.service.students;
+                this.select_student = res as Student[];
             });
         this.service.getClubs()
             .subscribe(res => {
-                this.service.clubs = res as Club[];
-                this.select_club = this.service.clubs;
+                this.select_club = res as Club[];
             });
     }
 

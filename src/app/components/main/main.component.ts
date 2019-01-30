@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DirectorsService } from '../../services/director/directors.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class MainComponent implements OnInit {
 
-    constructor(public router: Router, public AuthService: DirectorsService) { }
+    constructor(public router: Router, public AuthService: AuthService) { }
 
     ngOnInit() {
     }

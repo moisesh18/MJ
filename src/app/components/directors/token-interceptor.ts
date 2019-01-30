@@ -5,7 +5,7 @@ import {
     HttpEvent,
     HttpInterceptor
 } from '@angular/common/http';
-import { DirectorsService } from '../../services/director/directors.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Observable, empty } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from "@angular/router";
@@ -15,7 +15,7 @@ declare var M: any;
 export class TokenInterceptor implements HttpInterceptor {
     constructor(private injector: Injector, private router: Router) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let authService = this.injector.get(DirectorsService);
+        let authService = this.injector.get(AuthService);
         request = request.clone({
             setHeaders: {
                 Authorization: authService.getToken() || ""

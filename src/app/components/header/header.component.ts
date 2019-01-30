@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DirectorsService } from '../../services/director/directors.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { DirectorsService } from '../../services/director/directors.service';
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-    constructor(public AuthService: DirectorsService) { }
+    constructor(public AuthService: AuthService) { }
 
     ngOnInit() {
     }
