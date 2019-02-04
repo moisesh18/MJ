@@ -1,66 +1,65 @@
 const Cycle = require('../models/cycle');
 const CycleController = {};
 const mongoose = require('mongoose');
-
-CycleController.get = async (req,res)=>{
+let single = {};
+CycleController.get = async (req, res) => {
     const cycle = await Cycle.find();
     res.json(cycle);
 }
 
-CycleController.create = async (req,res) => {
-    const cycle = new Cycle(req.body);
-    if (Validations(req.body)) {
-      await cycle.save(function (err) {
-        if (err) {
-          res.send("El usuario ya existe...");
-        } else {
-          res.json({
-            status: 'Saved'
-          });
+CycleController.create = async (req, res) => {
+    try {
+        single = new Cycle(req.body);
+        if (Validations(single)) {
+            await single.save();
+            res.json({ message: "Completado" })
         }
-      });
-    } else {
-      res.send("Revisa los campos...");
+    } catch (e) {
+        res.json({ message: e.message })
     }
 };
 
-function Validations(obj) {
-  for (var o in obj) {
-    if (obj[o] == "" || !obj[o]) return false;
-  }
-  return true;
+CycleController.getCycle = async (req, res) => {
+    try {
+        single = await Cycle.find();
+        res.json(single);
+    } catch (e) {
+        res.json({ message: e.message })
+    }
+
 }
 
-CycleController.getCycle = async (req,res)=>{
-    await Cycle.find(function (err,cycle){
-        res.json(cycle);
-    });
-}
-
-CycleController.getEnrolls = async (req,res)=>{
-    const plural = await mongoose.model('Enrolled').find({club:req.params.id})
-                            .populate({path: 'student',select:"first_name last_name"})
-                            .populate({path: 'club',select:"name"});
+CycleController.getEnrolls = async (req, res) => {
+    const plural = await mongoose.model('Enrolled').find({ club: req.params.id })
+        .populate({ path: 'student', select: "first_name last_name" })
+        .populate({ path: 'club', select: "name" });
     res.json(plural);
 }
 
-CycleController.edit = async (req,res)=>{
-    const { id } = req.params;
-    const cycle = {
-        cycle: req.body.cycle,
-        fees: req.body.fees
+CycleController.edit = async (req, res) => {
+    try {
+        single = new Cycle(req.body);
+        await Cycle.findByIdAndUpdate(single._id, { $set: single }, { new: true });
+        res.json({ message: "Completado" })
+    } catch (e) {
+        res.json({ message: e.message })
     }
-    await Cycle.findByIdAndUpdate(id, {$set: cycle},{new:true});
-    res.json({
-        status: 'Updated'
-    });
 }
 
-CycleController.delete = async (req,res)=>{
-    await Cycle.findByIdAndRemove(req.params.id);
-    res.json({
-        status: 'Removed'
-    });
+CycleController.delete = async (req, res) => {
+    try {
+        await Cycle.findByIdAndRemove(req.params.id);
+        res.json({ message: "Completado" })
+    } catch (e) {
+        res.json({ message: e.message })
+    }
+}
+
+function Validations(obj) {
+    for (var o in obj) {
+        if (obj[o] == "" || !obj[o]) throw new Error("Revisa los campos");
+    }
+    return true;
 }
 
 module.exports = CycleController;

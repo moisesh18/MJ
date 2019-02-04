@@ -3,7 +3,7 @@
         <div class="row">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
             <div class="input-field col-sm-12">
-                <ng-select [virtualScroll]="true" name="job" #job="ngModel" [(ngModel)]="service.selected.job"
+                <ng-select [virtualScroll]="true" name="role" #role="ngModel" [(ngModel)]="service.selected.role"
                     autocomplete="off" placeholder="Selecciona el puesto">
                     <ng-option [value]="'admin'">Administrador</ng-option>
                     <ng-option [value]="'director'">Director</ng-option>
@@ -39,5 +39,5 @@
     </form>
 </div>
 <div class="row">
-    <table class="bTable" data-side-pagination="client" data-pagination="true" data-show-pagination-switch="true"></table>
+    <table class="bTable"></table>
 </div>

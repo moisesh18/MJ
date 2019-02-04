@@ -1,16 +1,9 @@
 export class Club {
-
-    constructor() {
-        this._id = "";
-        this.name = "";
-        this.logo = "";
-        this.type = "";
-        this.fees = null;
-    }
-
-    _id: String;
-    name: String;
-    logo: String;
-    type: String;
-    fees: Number;
+    constructor(
+        public _id: string = '',
+        public name: string = '',
+        public logo: string = '',
+        public type: string = '',
+        public fees: number = 0
+    ) { }
 }

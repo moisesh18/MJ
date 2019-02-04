@@ -31,7 +31,7 @@ export class DirectorsComponent implements OnInit {
         this.columns = [
             [{
                 title: 'Puesto',
-                field: 'job',
+                field: 'role',
                 sortable: true
             },
             {
@@ -71,7 +71,22 @@ export class DirectorsComponent implements OnInit {
             .subscribe(res => {
                 $('.bTable').bootstrapTable({
                     columns: this.columns,
-                    data: res as Director[]
+                    data: res as Director[],
+                    showExport: true,
+                    exportDataType: 'all',
+                    exportTypes: ['excel'],
+                    search: true,
+                    sortName: "student.fullName",
+                    sortOrder: "asc",
+                    pagination: true,
+                    showPaginationSwitch: true,
+                    rememberOrder: true,
+                    showColumns: true,
+                    locale: "es-MX",
+                    exportOptions: {
+                        "fileName": "Directiva",
+                        "ignoreColumn": ["operate"]
+                    }
                 })
             });
     }
@@ -88,23 +103,22 @@ export class DirectorsComponent implements OnInit {
             return false;
         }
         if (form.value._id) {
-            console.log(form.value.password);
             if (form.value.password == "") {
                 delete form.value.password;
             }
             this.service.put(form.value)
-                .subscribe(res => {
+                .subscribe((res:any) => {
                     this.resetForm(form);
                     this.get();
-                    M.toast({ html: 'Editado correctamente' });
+                    M.toast({ html: res.message });
                 });
         } else {
             delete form.value._id;
             this.service.post(form.value)
-                .subscribe(res => {
+                .subscribe((res:any) => {
                     this.get();
                     this.resetForm(form);
-                    M.toast({ html: 'El participante de la directiva ha sido creado exitosamente' });
+                    M.toast({ html: res.message });
                 });
         }
 
@@ -129,9 +143,9 @@ export class DirectorsComponent implements OnInit {
     delete(_id: string) {
         if (confirm('¿Estas seguro de eliminar este usuario?')) {
             this.service.delete(_id)
-                .subscribe(res => {
+                .subscribe((res:any) => {
                     this.get();
-                    M.toast({ html: 'El estudiante ha sido eliminado exitosamente' });
+                    M.toast({ html: res.message });
                 });
         }
     }

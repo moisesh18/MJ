@@ -38,7 +38,7 @@ export class AuthService {
     }
 
     isAdmin() {
-        if (this.user.job == "admin") {
+        if (this.isLoggedIn() && this.user.role == "admin") {
             return true;
         } else {
             return false;
@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     isDirector() {
-        if (this.user.job == "director") {
+        if (this.isLoggedIn() && this.user.role == "director" || this.isAdmin()) {
             return true;
         } else {
             return false;
@@ -54,7 +54,7 @@ export class AuthService {
     }
 
     isSecretary() {
-        if (this.user.job == "secretario") {
+        if (this.isLoggedIn() && this.user.role == "secretario" || this.isDirector()) {
             return true;
         } else {
             return false;
@@ -62,7 +62,7 @@ export class AuthService {
     }
 
     isTreasurer() {
-        if (this.user.job == "tesorero") {
+        if (this.isLoggedIn() && this.user.role == "tesorero" || this.isSecretary()) {
             return true;
         } else {
             return false;
@@ -70,7 +70,7 @@ export class AuthService {
     }
 
     isUser() {
-        if (this.user.job == "inscripciones") {
+        if (this.isLoggedIn() && this.user.role == "inscripciones" || this.isTreasurer()) {
             return true;
         } else {
             return false;

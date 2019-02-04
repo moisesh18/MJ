@@ -4,134 +4,113 @@ const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var secret = "&$^Vb:?wKYL'N'6%";
 const bcrypt = require('bcrypt-nodejs');
+let single = {}
 
 DirectorController.getDirectors = async (req, res) => {
-    const directors = await Director.find()
-        .populate({
-            path: 'student',
-            select: "first_name last_name"
-        })
-        .populate({
-            path: 'club',
-            select: 'name'
-        });
-    res.json(directors);
+    if (req.user.role == "admin") {
+        single = await Director.find()
+            .populate({
+                path: 'student',
+                select: "first_name last_name"
+            })
+            .populate({
+                path: 'club',
+                select: 'name'
+            });
+    } else {
+        single = await Director.find({ club: req.user.club })
+            .populate({
+                path: 'student',
+                select: "first_name last_name"
+            })
+            .populate({
+                path: 'club',
+                select: 'name'
+            });
+    }
+    res.json(single);
 }
 
 DirectorController.createDirector = async (req, res) => {
-    const director = new Director(req.body);
-    if (Validations(req.body)) {
-        await director.save(function (err) {
-            if (err) {
-                res.send("El usuario ya existe...");
-            } else {
-                res.json({
-                    status: 'Saved'
-                });
-            }
-        });
-    } else {
-        res.send("Revisa los campos...");
+    try {
+        single = new Director(req.body);
+        if (Validations(single)) {
+            await single.save();
+            res.json({ message: "Completado" })
+        }
+    } catch (e) {
+        res.json({ message: e.message })
     }
 };
 
 DirectorController.currentUser = async (req, res) => {
-    res.send(req.decoded);
+    res.json(req.user);
 };
 
 DirectorController.authenticate = async (req, res) => {
-    await Director.findOne({
-        student: req.body.username
-    }).exec(function (err, user) {
-        if (!user) {
+    try {
+        var user = await Director.findOne({ student: req.body.username })
+        if (req.body.password && user.comparePasswords(req.body.password)) {
+            var token = jwt.sign({
+                username: user.student,
+                club: user.club,
+                role: user.role
+            }, secret, {
+                    expiresIn: '24h'
+                });
+            res.json({
+                success: true,
+                message: "Login correcto",
+                token: token
+            });
+        } else {
             res.json({
                 success: false,
-                message: "El usuario no existe"
+                message: "Contraseña incorrecta"
             });
-        } else if (user) {
-            if (req.body.password && user.comparePasswords(req.body.password)) {
-                var token = jwt.sign({
-                    username: user.student,
-                    club: user.club,
-                    job: user.job
-                }, secret, {
-                        expiresIn: '24h'
-                    });
-                res.json({
-                    success: true,
-                    message: "Login correcto",
-                    token: token
-                });
-            } else {
-                res.json({
-                    success: false,
-                    message: "Contraseña incorrecta"
-                });
-            }
         }
-    });
+    } catch (e) {
+        res.json({ message: e.message })
+    }
 }
 
 DirectorController.getDirector = async (req, res) => {
-    await Director.findOne({
-        student: req.params.id
-    }, function (err, students) {
-        res.json(students);
-    });
-}
-
-
-DirectorController.prueba = async (req, res) => {
-    var director = {
-        password: null
+    try {
+        single = await Director.findOne({ student: req.params.id });
+        res.json(single);
+    } catch (e) {
+        res.json({ message: e.message })
     }
-    //$2a$10$eIFKiU.aulBmFqrhIFWfQOAsmas1m2edLSkK1RU2vkbxoyhKV4IMG
-    //test
-    await bcrypt.hash("moises", null, null, function (err, hash) {
-        if (err) return next(err);
-        director.password = hash;
-    });
-    await Director.findByIdAndUpdate("5bf1e3b45bf70e8bab9c5646", { $set: director }, { runValidators: true });
-    res.json({
-        status: 'Updated'
-    });
 }
-
+//$2a$10$eIFKiU.aulBmFqrhIFWfQOAsmas1m2edLSkK1RU2vkbxoyhKV4IMG
+//test
 
 DirectorController.editDirector = async (req, res) => {
-    const { id } = req.params;
-    console.log(req.body);
-    var director = {
-        job: req.body.job,
-        password: null,
-        student: req.body.student,
-        club: req.body.club
+    try {
+        single = new Director(req.body);
+        if (single.password != undefined) {
+            await bcrypt.hash(single.password, null, null, function (err, hash) {
+                if (err) return next(err);
+                single.password = hash;
+            });
+        } else {
+            delete single.password;
+        }
+        await Director.findByIdAndUpdate(single._id, { $set: single }, { runValidators: false });
+        res.json({ message: "Completado" })
+    } catch (e) {
+        res.json({ message: e.message })
     }
-    if (req.body.password != undefined) {
-        console.log("SI HAY ALGO |" + req.body.password + "| TF");
-        await bcrypt.hash(req.body.password, null, null, function (err, hash) {
-            if (err) return next(err);
-            director.password = hash;
-            console.log(director.password);
-        });
-    } else {
-        console.log("SI NO HAY NADA");
-        delete director.password;
-    }
-    await Director.findByIdAndUpdate(id, { $set: director }, { runValidators: false });
-    res.json({
-        status: 'Updated'
-    });
 }
 
 DirectorController.deleteDirector = async (req, res) => {
-    await Director.findByIdAndRemove(req.params.id);
-    res.json({
-        status: 'Removed'
-    });
+    try {
+        await Director.findByIdAndRemove(req.params.id);
+        res.json({ message: "Completado" })
+    } catch (e) {
+        res.json({ message: e.message })
+    }
 }
-
-module.exports = DirectorController;
 
 function Validations(obj) {
     for (var o in obj) {
@@ -139,3 +118,5 @@ function Validations(obj) {
     }
     return true;
 }
+
+module.exports = DirectorController;

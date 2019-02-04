@@ -5,6 +5,7 @@ import { Student } from '../../models/student';
 import { Club } from '../../models/club';
 import { Cycle } from '../../models/cycle';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
 
 declare var M: any;
 declare var $: any;
@@ -20,7 +21,7 @@ export class EnrollsComponent implements OnInit {
     select_club: any;
     select_cycles: any;
     columns: any;
-    constructor(public service: EnrollsService) {
+    constructor(public service: EnrollsService, public AuthService: AuthService) {
         var self = this;
         var operateEvents = {
             'click .edit': function (e, value, row, index) {
@@ -30,12 +31,14 @@ export class EnrollsComponent implements OnInit {
                 self.delete(row._id)
             }
         }
+
         this.columns = [
             [{
                 title: 'Matricula',
                 field: 'student._id',
                 sortable: true
-            }, {
+            },
+            {
                 title: 'Nombre',
                 field: 'student.fullName',
                 sortable: true
@@ -65,7 +68,8 @@ export class EnrollsComponent implements OnInit {
         ];
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        await this.AuthService.CurrentUser();
         this.get();
         M.AutoInit();
         this.getSelect();
@@ -74,18 +78,18 @@ export class EnrollsComponent implements OnInit {
     add(form?: NgForm) {
         if (form.value._id) {
             this.service.put(form.value)
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     this.resetForm(form);
                     this.get();
-                    M.toast({ html: 'Editado correctamente' });
+                    M.toast({ html: res.message });
                 });
         } else {
             delete form.value._id;
             this.service.post(form.value)
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     this.get();
                     this.resetForm(form);
-                    M.toast({ html: 'El participante de la directiva ha sido creado exitosamente' });
+                    M.toast({ html: res.message });
                 });
         }
 
@@ -116,7 +120,22 @@ export class EnrollsComponent implements OnInit {
             .subscribe(res => {
                 $('.bTable').bootstrapTable({
                     columns: this.columns,
-                    data: res as Enroll[]
+                    data: res as Enroll[],
+                    showExport: true,
+                    exportDataType: 'all',
+                    exportTypes: ['excel'],
+                    search: true,
+                    sortName: "student.fullName",
+                    sortOrder: "asc",
+                    pagination: true,
+                    showPaginationSwitch: true,
+                    rememberOrder: true,
+                    showColumns: true,
+                    locale: "es-MX",
+                    exportOptions: {
+                        "fileName": "Inscritos",
+                        "ignoreColumn": ["operate"]
+                    }
                 })
             });
     }
@@ -130,9 +149,9 @@ export class EnrollsComponent implements OnInit {
     delete(_id: string) {
         if (confirm('¿Estas seguro de eliminar este usuario?')) {
             this.service.delete(_id)
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     this.get();
-                    M.toast({ html: 'El estudiante ha sido eliminado exitosamente' });
+                    M.toast({ html: res.message });
                 });
         }
     }

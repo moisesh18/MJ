@@ -111,7 +111,7 @@ module.exports = "@font-face {\n  font-family: 'Material Icons';\n  font-style: 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".ng-input input{\n    margin-bottom:-10px !important;\n}\n\n.bootstrap-table{\n    width:100%;\n}"
+module.exports = ".ng-input input{\n    margin-bottom:-10px !important;\n}\n\n.bootstrap-table{\n    width:100%;\n}\n\n.ng-select .ng-select-container:after{\n    padding:1px;\n}"
 
 /***/ }),
 

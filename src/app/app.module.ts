@@ -14,7 +14,6 @@ import { ClubsComponent } from './components/clubs/clubs.component';
 import { CycleComponent } from './components/cycle/cycle.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EnrollsComponent } from './components/enrolls/enrolls.component';
-import { StudentsByClubComponent } from './components/students-by-club/students-by-club.component';
 import { MainComponent } from './components/main/main.component';
 import { AuthGuard } from './guards/auth-guard';
 
@@ -29,7 +28,6 @@ import { AuthGuard } from './guards/auth-guard';
         ClubsComponent,
         CycleComponent,
         EnrollsComponent,
-        StudentsByClubComponent,
         MainComponent
     ],
     imports: [
@@ -55,11 +53,6 @@ import { AuthGuard } from './guards/auth-guard';
             {
                 path: 'clubs',
                 component: ClubsComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'my-club',
-                component: StudentsByClubComponent,
                 canActivate: [AuthGuard]
             },
             {

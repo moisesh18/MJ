@@ -1,40 +1,23 @@
 export class Student {
-
-    constructor(){
-        this._id = null;
-        this.first_name = "";
-        this.last_name = "";
-        this.career = null;
-        this.career_year = null;
-        this.birthday = "";
-        this.email = "";
-        this.phone = "";
-        this.shirt_size = null;
-        this.resident = false; 
-        this.residence = "";
-        this.breakfast = false; 
-        this.lunch = false; 
-        this.dinner = false;
-        this.blood_type = "";
-        this.drugs = null;
-        this.allergy = null;
-        this.recent_illness = null;
-    }
-
-    _id: String;
-    first_name: String;
-    last_name: String;
-    career: String;
-    career_year: Number;
-    birthday: String;
-    email: String;
-    phone: String;
-    shirt_size: String;
-    resident: Boolean; 
-    residence: String;
-    breakfast: Boolean; lunch: Boolean; dinner: Boolean;
-    blood_type: String;
-    drugs:  String;
-    allergy:  String;
-    recent_illness:  String;
+    constructor(
+        public _id: string = null,
+        public first_name: string = "",
+        public last_name: string = "",
+        public career: string = null,
+        public career_year: number = null,
+        public birthday: string = "",
+        public email: string = "",
+        public phone: string = "",
+        public shirt_size: string = null,
+        public resident: Boolean = false,
+        public residence: string = "",
+        public breakfast: Boolean = false,
+        public lunch: Boolean = false,
+        public dinner: Boolean = false,
+        public blood_type: string = "",
+        public drugs: string = null,
+        public allergy: string = null,
+        public recent_illness: string = null,
+        public cycle: any = '',
+    ) { }
 }

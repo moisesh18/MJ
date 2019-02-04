@@ -30,7 +30,10 @@
                             "node_modules/bootstrap-table/dist/bootstrap-table.min.css"
                         ],
                         "scripts": [
-                            "src/assets/js/materialize.min.js"
+                            "src/assets/js/materialize.min.js",
+                            "node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js",
+                            "node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js",
+                            "node_modules/tableexport.jquery.plugin/tableExport.min.js"
                         ]
                     },
                     "configurations": {

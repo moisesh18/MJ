@@ -5,7 +5,7 @@ const {
 const bcrypt = require('bcrypt-nodejs');
 
 const DirectorsSchema = new Schema({
-    job: {
+    role: {
         type: String,
         required: true
     },

@@ -33,8 +33,8 @@ export class EnrollsService {
         return this.http.get(this.URL_CLUBS);
     }
 
-    getEnrolls(_id: String) {
-        return this.http.get(this.URL_API + `/${_id}/enrolls`);
+    getEnrolls() {
+        return this.http.get(this.URL_API + `/enrolls`);
     }
 
     getStudents() {

@@ -24,8 +24,8 @@ export class ClubService {
         return this.http.get(this.URL_API + `/${_id}/directors`);
     }
 
-    getEnrolls(_id: String) {
-        return this.http.get(this.URL_API + `/${_id}/enrolls`);
+    getEnrolls() {
+        return this.http.get(this.URL_API + "/enrolls");
     }
 
     post(single: Club) {

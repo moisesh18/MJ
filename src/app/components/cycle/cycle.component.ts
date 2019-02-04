@@ -59,18 +59,18 @@ export class CycleComponent implements OnInit {
     add(form?: NgForm) {
         if (form.value._id) {
             this.service.put(form.value)
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     this.resetForm(form);
                     this.get();
-                    M.toast({ html: 'El participante de la directiva ha sido editado exitosamente' });
+                    M.toast({ html: res.message });
                 });
         } else {
             delete form.value._id;
             this.service.post(form.value)
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     this.get();
                     this.resetForm(form);
-                    M.toast({ html: 'El participante de la directiva ha sido creado exitosamente' });
+                    M.toast({ html: res.message });
                 });
         }
 
@@ -86,7 +86,22 @@ export class CycleComponent implements OnInit {
             .subscribe(res => {
                 $('.bTable').bootstrapTable({
                     columns: this.columns,
-                    data: res as Cycle[]
+                    data: res as Cycle[],
+                    showExport: true,
+                    exportDataType: 'all',
+                    exportTypes: ['excel'],
+                    search: true,
+                    sortName: "name",
+                    sortOrder: "asc",
+                    pagination: true,
+                    showPaginationSwitch: true,
+                    rememberOrder: true,
+                    showColumns: true,
+                    locale: "es-MX",
+                    exportOptions: {
+                        "fileName": "Ciclos",
+                        "ignoreColumn": ["operate"]
+                    }
                 })
             });
     }
@@ -94,9 +109,9 @@ export class CycleComponent implements OnInit {
     delete(_id: string) {
         if (confirm('¿Estas seguro de eliminar este usuario?')) {
             this.service.delete(_id)
-                .subscribe(res => {
+                .subscribe((res: any) => {
                     this.get();
-                    M.toast({ html: 'El estudiante ha sido eliminado exitosamente' });
+                    M.toast({ html: res.message });
                 });
         }
     }
