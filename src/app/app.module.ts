@@ -15,6 +15,7 @@ import { CycleComponent } from './components/cycle/cycle.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EnrollsComponent } from './components/enrolls/enrolls.component';
 import { MainComponent } from './components/main/main.component';
+import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './guards/auth-guard';
 
 @NgModule({
@@ -76,6 +77,7 @@ import { AuthGuard } from './guards/auth-guard';
         ])
     ],
     providers: [
+        AuthService,
         AuthGuard,
         {
             provide: HTTP_INTERCEPTORS,

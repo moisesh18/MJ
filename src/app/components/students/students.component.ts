@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../services/student/student.service';
 import { ClubService } from '../../services/club/club.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { EnrollsService } from '../../services/enrolls/enrolls.service';
 import { Student } from '../../models/student';
 import { NgForm } from '@angular/forms';
-import { all } from 'q';
 
 declare var M: any;
 declare var $: any;
+
 
 @Component({
     selector: 'app-students',
@@ -18,7 +20,9 @@ export class StudentsComponent implements OnInit {
     columns: any;
     constructor(
         public service: StudentService,
-        public ClubService: ClubService
+        public ClubService: ClubService,
+        public AuthService: AuthService,
+        public EnrollsService: EnrollsService,
     ) {
         var self = this;
         var operateEvents = {
@@ -26,7 +30,7 @@ export class StudentsComponent implements OnInit {
                 self.select(row.student)
             },
             'click .delete': function (e, value, row, index) {
-                self.delete(row.student._id)
+                self.delete(row._id)
             }
         }
         this.columns = [
@@ -136,9 +140,9 @@ export class StudentsComponent implements OnInit {
         ];
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.get();
-        $('#studentForm #edit, .food-conditional').hide();
+        $('#studentForm #editar, .food-conditional').hide();
         M.AutoInit();
         $('#food-conditional').change(function () {
             if ($(this).is(":checked")) {
@@ -147,37 +151,37 @@ export class StudentsComponent implements OnInit {
             }
             $(".food-conditional").fadeOut();
         });
+        $('.bTable').bootstrapTable({
+            columns: this.columns,
+            showExport: true,
+            exportDataType: 'all',
+            exportTypes: ['excel'],
+            search: true,
+            sortName: "fullName",
+            sortOrder: "asc",
+            pagination: true,
+            showPaginationSwitch: true,
+            rememberOrder: true,
+            showColumns: true,
+            locale: "es-MX",
+            exportOptions: {
+                "fileName": "Estudiantes",
+                "ignoreColumn": ["operate"]
+            }
+        })
     }
 
     get() {
-        $('.bTable').bootstrapTable("destroy");
         this.ClubService.getEnrolls()
-            .subscribe((res: any) => {
-                $('.bTable').bootstrapTable({
-                    columns: this.columns,
-                    data: res,
-                    showExport: true,
-                    exportDataType: 'all',
-                    exportTypes: ['excel'],
-                    search: true,
-                    sortName: "fullName",
-                    sortOrder: "asc",
-                    pagination: true,
-                    showPaginationSwitch: true,
-                    rememberOrder: true,
-                    showColumns: true,
-                    locale: "es-MX",
-                    exportOptions: {
-                        "fileName": "Estudiantes",
-                        "ignoreColumn": ["operate"]
-                    }
-                })
+            .subscribe(res => {
+                var data = res;
+                $('.bTable').bootstrapTable("load", data)
             });
     }
 
     operateFormatter() {
         return [
-            '<a href="javascript:void(0)" class="edit"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
+            '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
         ].join('')
     }
 
@@ -187,24 +191,28 @@ export class StudentsComponent implements OnInit {
         }
         this.service.post(form.value)
             .subscribe((res: any) => {
-                this.resetForm(form);
                 M.toast({ html: res.message });
-                this.get();
+                if (res.success) {
+                    this.resetForm(form);
+                    this.get();
+                }
             });
     }
 
     editStudent(form: NgForm) {
         this.service.put(form.value)
             .subscribe((res: any) => {
-                this.resetForm(form);
                 M.toast({ html: res.message });
-                this.get();
+                if (res.success) {
+                    this.resetForm(form);
+                    this.get();
+                }
             });
     }
 
     select(student: Student) {
-        $('#studentForm #edit').show();
-        $('#studentForm #submit').hide();
+        $('#studentForm #editar').fadeIn();
+        $('#studentForm #submit').fadeToggle();
         $('.text-area-fix').addClass('active');
         if (student.resident) {
             $("#residence-field").fadeIn();
@@ -216,7 +224,7 @@ export class StudentsComponent implements OnInit {
         $('#studentForm #edit').hide();
         $('#studentForm #submit').show();
         if (confirm('¿Estas seguro de eliminar este usuario?')) {
-            this.service.delete(_id)
+            this.EnrollsService.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
                     M.toast({ html: res.message });
@@ -227,8 +235,8 @@ export class StudentsComponent implements OnInit {
     resetForm(form?: NgForm) {
         if (form) {
             form.reset();
-            $('#studentForm #edit').hide();
-            $('#studentForm #submit').show();
+            $('#studentForm #editar').fadeToggle();
+            $('#studentForm #submit').fadeToggle();
             this.service.selected = new Student();
         }
     }

@@ -18,10 +18,7 @@ function VerifyToken(req, res, next) {
             }
         });
     } else {
-        return res.status(401).json({
-            success: false,
-            message: "No se proporcionó un token"
-        });
+        return res.status(401)
     }
 }
 

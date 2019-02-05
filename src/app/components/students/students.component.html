@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="AuthService.isUser()">
     <form id="studentForm" #studentForm="ngForm" class="row">
         <div class="row">
             <div class="col-sm-6">
@@ -102,8 +102,8 @@
             </div>
             <div class="input-field col-sm-12">
                 <button class="btn left" (click)="resetForm(studentForm)">Limpiar formulario</button>
-                <button id="edit" class="btn right hidden" (click)="editStudent(studentForm)">Guardar</button>
-                <button id="submit" type="submit" class="btn right" (click)="addStudent(studentForm)">Guardar</button>
+                <button id="editar" class="btn right" (click)="editStudent(studentForm)">Editar</button>
+                <button id="submit" type="submit" class="btn right" (click)="addStudent(studentForm)">Agregar</button>
             </div>
         </div>
     </form>

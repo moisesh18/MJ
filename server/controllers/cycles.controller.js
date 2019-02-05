@@ -3,16 +3,16 @@ const CycleController = {};
 const mongoose = require('mongoose');
 let single = {};
 CycleController.get = async (req, res) => {
-    const cycle = await Cycle.find();
-    res.json(cycle);
+    single = await Cycle.find().sort({ "_id": -1 }).limit(1)
+    res.json(single);
 }
 
 CycleController.create = async (req, res) => {
     try {
         single = new Cycle(req.body);
-        if (Validations(single)) {
+        if (Validations(req.body)) {
             await single.save();
-            res.json({ message: "Completado" })
+            res.json({ success: true, message: "Completado" })
         }
     } catch (e) {
         res.json({ message: e.message })
@@ -40,7 +40,7 @@ CycleController.edit = async (req, res) => {
     try {
         single = new Cycle(req.body);
         await Cycle.findByIdAndUpdate(single._id, { $set: single }, { new: true });
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -49,7 +49,7 @@ CycleController.edit = async (req, res) => {
 CycleController.delete = async (req, res) => {
     try {
         await Cycle.findByIdAndRemove(req.params.id);
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }

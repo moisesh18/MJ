@@ -18,9 +18,9 @@ StudentController.getStudent = async (req, res) => {
 StudentController.createStudent = async (req, res) => {
     try {
         single = new Student(req.body);
-        if (Validations(single)) {
+        if (Validations(req.body)) {
             await single.save();
-            res.json({ message: "Completado" })
+            res.json({ success: true, message: "Completado" })
         }
     } catch (e) {
         res.json({ message: e.message })
@@ -31,7 +31,7 @@ StudentController.editStudent = async (req, res) => {
     try {
         single = new Student(req.body);
         await Student.findByIdAndUpdate(single._id, { $set: single }, { new: true });
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -39,8 +39,9 @@ StudentController.editStudent = async (req, res) => {
 
 StudentController.deleteStudent = async (req, res) => {
     try {
+        await Club.findByIdAndRemove(req.params.id);
         await Student.findByIdAndRemove(req.params.id);
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }

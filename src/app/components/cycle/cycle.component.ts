@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CycleService } from '../../services/cycle/cycle.service';
 import { Cycle } from '../../models/cycle';
+import { AuthService } from '../../services/auth/auth.service';
 import { NgForm } from '@angular/forms';
 
 declare var M: any;
@@ -14,7 +15,8 @@ declare var $: any;
 })
 export class CycleComponent implements OnInit {
     columns: any;
-    constructor(public service: CycleService) {
+    constructor(public service: CycleService,
+        public AuthService: AuthService) {
         var self = this;
         var operateEvents = {
             'click .edit': function (e, value, row, index) {
@@ -47,30 +49,52 @@ export class CycleComponent implements OnInit {
 
     operateFormatter() {
         return [
-            '<a href="javascript:void(0)" class="edit"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
+            '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
         ].join('')
     }
 
     ngOnInit() {
         this.get();
         M.AutoInit();
+        $('.bTable').bootstrapTable({
+            columns: this.columns,
+            showExport: true,
+            exportDataType: 'all',
+            exportTypes: ['excel'],
+            search: true,
+            sortName: "name",
+            sortOrder: "asc",
+            pagination: true,
+            showPaginationSwitch: true,
+            rememberOrder: true,
+            showColumns: true,
+            locale: "es-MX",
+            exportOptions: {
+                "fileName": "Ciclos",
+                "ignoreColumn": ["operate"]
+            }
+        })
     }
 
     add(form?: NgForm) {
         if (form.value._id) {
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    this.resetForm(form);
-                    this.get();
                     M.toast({ html: res.message });
+                    if (res.success) {
+                        this.resetForm(form);
+                        this.get();
+                    }
                 });
         } else {
             delete form.value._id;
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    this.get();
-                    this.resetForm(form);
                     M.toast({ html: res.message });
+                    if (res.success) {
+                        this.resetForm(form);
+                        this.get();
+                    }
                 });
         }
 
@@ -81,28 +105,10 @@ export class CycleComponent implements OnInit {
     }
 
     get() {
-        $('.bTable').bootstrapTable("destroy");
         this.service.get()
             .subscribe(res => {
-                $('.bTable').bootstrapTable({
-                    columns: this.columns,
-                    data: res as Cycle[],
-                    showExport: true,
-                    exportDataType: 'all',
-                    exportTypes: ['excel'],
-                    search: true,
-                    sortName: "name",
-                    sortOrder: "asc",
-                    pagination: true,
-                    showPaginationSwitch: true,
-                    rememberOrder: true,
-                    showColumns: true,
-                    locale: "es-MX",
-                    exportOptions: {
-                        "fileName": "Ciclos",
-                        "ignoreColumn": ["operate"]
-                    }
-                })
+                var data = res as Cycle[]
+                $('.bTable').bootstrapTable("load", data)
             });
     }
 

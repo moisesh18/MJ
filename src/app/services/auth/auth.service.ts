@@ -11,6 +11,7 @@ declare var M: any;
 })
 
 export class AuthService {
+    miprueba: string = 'test2';
     selected: Director;
     user: any;
     ip = window.location.hostname;
@@ -21,71 +22,56 @@ export class AuthService {
     constructor(private router: Router, private http: HttpClient) {
         this.selected = new Director();
         this.user = new Director();
+        // if (!this.user) {
+        //     this.CurrentUser();
+        // }
     }
 
     authenticate(loginData) {
         return this.http.post(this.URL_API + "/authenticate", loginData);
     }
 
-    me() {
-        return this.http.post(this.URL_API + "/me", {});
-    }
-
     async CurrentUser() {
-        return this.http.post(this.URL_API + "/me", {}).toPromise().then(
+        return await this.http.post(this.URL_API + "/me", {}).toPromise().then(
             res => { this.user = res; }
         );
     }
 
     isAdmin() {
-        if (this.isLoggedIn() && this.user.role == "admin") {
-            return true;
-        } else {
-            return false;
-        }
+        return this.user.role == "admin"
     }
 
     isDirector() {
-        if (this.isLoggedIn() && this.user.role == "director" || this.isAdmin()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.user.role == "director" || this.isAdmin()
     }
 
     isSecretary() {
-        if (this.isLoggedIn() && this.user.role == "secretario" || this.isDirector()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.user.role == "secretario" || this.isDirector()
     }
 
     isTreasurer() {
-        if (this.isLoggedIn() && this.user.role == "tesorero" || this.isSecretary()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.user.role == "tesorero" || this.isSecretary()
     }
 
     isUser() {
-        if (this.isLoggedIn() && this.user.role == "inscripciones" || this.isTreasurer()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.user.role == "usuario" || this.isTreasurer()
+    }
+
+    soy() {
+        return this.user.role
     }
 
     doLogout() {
         this.router.navigate(["/"]);
         window.localStorage.removeItem('token');
+        this.user = false;
     }
 
     doLogin(form?: NgForm) {
         this.authenticate(form.value)
             .subscribe((res: any) => {
                 if (res.success) {
+                    this.user = res.user;
                     this.setToken(res.token);
                     this.router.navigate(["/clubs"]);
                 }

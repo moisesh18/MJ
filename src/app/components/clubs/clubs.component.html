@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="AuthService.isSecretary()">
     <form id="form" #form="ngForm" class="row">
         <div class="row">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">

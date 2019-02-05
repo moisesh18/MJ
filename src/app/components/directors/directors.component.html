@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="AuthService.isAdmin()">
     <form id="form" #form="ngForm" class="row">
         <div class="row">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
@@ -9,7 +9,7 @@
                     <ng-option [value]="'director'">Director</ng-option>
                     <ng-option [value]="'secretario'">Secretario</ng-option>
                     <ng-option [value]="'tesorero'">Tesorero</ng-option>
-                    <ng-option [value]="'inscripciones'">Inscripciones</ng-option>
+                    <ng-option [value]="'usuario'">Usuario</ng-option>
                 </ng-select>
             </div>
             <div class="input-field col-sm-12">
@@ -38,6 +38,7 @@
         </div>
     </form>
 </div>
+{{AuthService.isAdmin()}}
 <div class="row">
     <table class="bTable"></table>
 </div>

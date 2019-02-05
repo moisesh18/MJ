@@ -39,9 +39,9 @@ EnrollController.get = async (req, res) => {
 EnrollController.create = async (req, res) => {
     try {
         single = new Enroll(req.body);
-        if (Validations(single)) {
+        if (Validations(req.body)) {
             await single.save();
-            res.json({ message: "Completado" })
+            res.json({ success: true, message: "Completado" })
         }
     } catch (e) {
         res.json({ message: e.message })
@@ -52,7 +52,7 @@ EnrollController.edit = async (req, res) => {
     try {
         single = new Enroll(req.body);
         await Enroll.findByIdAndUpdate(single._id, { $set: single }, { new: true });
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -61,7 +61,7 @@ EnrollController.edit = async (req, res) => {
 EnrollController.delete = async (req, res) => {
     try {
         await Enroll.findByIdAndRemove(req.params.id);
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -69,7 +69,7 @@ EnrollController.delete = async (req, res) => {
 
 function Validations(obj) {
     for (var o in obj) {
-        if (obj[o] == "" || !obj[o]) throw new Error("Revisa los campos");
+        if (obj[o] == "" || !obj[o]) throw new Error("Revisa los campos" + obj[o]);
     }
     return true;
 }

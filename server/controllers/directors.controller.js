@@ -34,9 +34,9 @@ DirectorController.getDirectors = async (req, res) => {
 DirectorController.createDirector = async (req, res) => {
     try {
         single = new Director(req.body);
-        if (Validations(single)) {
+        if (Validations(req.body)) {
             await single.save();
-            res.json({ message: "Completado" })
+            res.json({ success: true, message: "Completado" })
         }
     } catch (e) {
         res.json({ message: e.message })
@@ -51,17 +51,19 @@ DirectorController.authenticate = async (req, res) => {
     try {
         var user = await Director.findOne({ student: req.body.username })
         if (req.body.password && user.comparePasswords(req.body.password)) {
-            var token = jwt.sign({
+            var encryptedUser = {
                 username: user.student,
                 club: user.club,
                 role: user.role
-            }, secret, {
-                    expiresIn: '24h'
-                });
+            }
+            var token = jwt.sign(encryptedUser, secret, {
+                expiresIn: '24h'
+            });
             res.json({
                 success: true,
                 message: "Login correcto",
-                token: token
+                token: token,
+                user: encryptedUser
             });
         } else {
             res.json({
@@ -97,7 +99,7 @@ DirectorController.editDirector = async (req, res) => {
             delete single.password;
         }
         await Director.findByIdAndUpdate(single._id, { $set: single }, { runValidators: false });
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -106,7 +108,7 @@ DirectorController.editDirector = async (req, res) => {
 DirectorController.deleteDirector = async (req, res) => {
     try {
         await Director.findByIdAndRemove(req.params.id);
-        res.json({ message: "Completado" })
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }

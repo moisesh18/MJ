@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DirectorsService } from '../../services/director/directors.service';
 import { Director } from '../../models/director';
+import { AuthService } from '../../services/auth/auth.service';
 import { Student } from '../../models/student';
 import { Club } from '../../models/club';
 import { NgForm } from '@angular/forms';
@@ -18,7 +19,7 @@ export class DirectorsComponent implements OnInit {
     select_student: any;
     select_club: any;
     columns: any;
-    constructor(public service: DirectorsService) {
+    constructor(public AuthService: AuthService, public service: DirectorsService) {
         var self = this;
         var operateEvents = {
             'click .edit': function (e, value, row, index) {
@@ -59,41 +60,42 @@ export class DirectorsComponent implements OnInit {
         ];
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        await this.AuthService.CurrentUser();
         this.get();
         M.AutoInit();
         this.getSelect();
+        $('.bTable').bootstrapTable({
+            columns: this.columns,
+            showExport: true,
+            exportDataType: 'all',
+            exportTypes: ['excel'],
+            search: true,
+            sortName: "student.fullName",
+            sortOrder: "asc",
+            pagination: true,
+            showPaginationSwitch: true,
+            rememberOrder: true,
+            showColumns: true,
+            locale: "es-MX",
+            exportOptions: {
+                "fileName": "Directiva",
+                "ignoreColumn": ["operate"]
+            }
+        })
     }
 
     get() {
-        $('.bTable').bootstrapTable("destroy");
         this.service.get()
             .subscribe(res => {
-                $('.bTable').bootstrapTable({
-                    columns: this.columns,
-                    data: res as Director[],
-                    showExport: true,
-                    exportDataType: 'all',
-                    exportTypes: ['excel'],
-                    search: true,
-                    sortName: "student.fullName",
-                    sortOrder: "asc",
-                    pagination: true,
-                    showPaginationSwitch: true,
-                    rememberOrder: true,
-                    showColumns: true,
-                    locale: "es-MX",
-                    exportOptions: {
-                        "fileName": "Directiva",
-                        "ignoreColumn": ["operate"]
-                    }
-                })
+                var data = res as Director[]
+                $('.bTable').bootstrapTable("load", data)
             });
     }
 
     operateFormatter() {
         return [
-            '<a href="javascript:void(0)" class="edit"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
+            '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
         ].join('')
     }
 
@@ -107,18 +109,22 @@ export class DirectorsComponent implements OnInit {
                 delete form.value.password;
             }
             this.service.put(form.value)
-                .subscribe((res:any) => {
-                    this.resetForm(form);
-                    this.get();
+                .subscribe((res: any) => {
                     M.toast({ html: res.message });
+                    if (res.success) {
+                        this.resetForm(form);
+                        this.get();
+                    }
                 });
         } else {
             delete form.value._id;
             this.service.post(form.value)
-                .subscribe((res:any) => {
-                    this.get();
-                    this.resetForm(form);
+                .subscribe((res: any) => {
                     M.toast({ html: res.message });
+                    if (res.success) {
+                        this.resetForm(form);
+                        this.get();
+                    }
                 });
         }
 
@@ -143,7 +149,7 @@ export class DirectorsComponent implements OnInit {
     delete(_id: string) {
         if (confirm('¿Estas seguro de eliminar este usuario?')) {
             this.service.delete(_id)
-                .subscribe((res:any) => {
+                .subscribe((res: any) => {
                     this.get();
                     M.toast({ html: res.message });
                 });

@@ -3,7 +3,7 @@
         <div class="row">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
             <div class="input-field col-sm-12">
-                <ng-select [items]="select_student" [virtualScroll]="true" bindLabel="fullName" bindValue="_id"
+                <ng-select [items]="select_student" [virtualScroll]="true" bindLabel="student" bindValue="_id"
                     placeholder="Selecciona el estudiante" name="student" #student="ngModel" [(ngModel)]="service.selected.student._id"
                     autocomplete="off">
                     <ng-template ng-typetosearch-tmp>
