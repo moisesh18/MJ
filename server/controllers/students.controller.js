@@ -23,6 +23,7 @@ StudentController.createStudent = async (req, res) => {
             res.json({ success: true, message: "Completado" })
         }
     } catch (e) {
+        console.log(req.body);
         res.json({ message: e.message })
     }
 };
