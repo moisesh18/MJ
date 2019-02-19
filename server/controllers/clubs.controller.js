@@ -16,10 +16,8 @@ ClubController.get = async (req, res) => {
 ClubController.create = async (req, res) => {
     try {
         single = new Club(req.body);
-        if (Validations(req.body)) {
-            await single.save();
-            res.json({ success: true, message: "Completado" })
-        }
+        await single.save();
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -65,13 +63,6 @@ ClubController.delete = async (req, res) => {
     } catch (e) {
         res.json({ message: e.message })
     }
-}
-
-function Validations(obj) {
-    for (var o in obj) {
-        if (obj[o] == "" || !obj[o]) throw new Error("Revisa los campos");
-    }
-    return true;
 }
 
 module.exports = ClubController;

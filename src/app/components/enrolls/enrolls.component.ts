@@ -7,7 +7,6 @@ import { Cycle } from '../../models/cycle';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 
-declare var M: any;
 declare var $: any;
 
 @Component({
@@ -21,7 +20,7 @@ export class EnrollsComponent implements OnInit {
     select_club: any;
     select_cycles: any;
     columns: any;
-    constructor(public service: EnrollsService, private AuthService: AuthService) {
+    constructor(public service: EnrollsService, public AuthService: AuthService) {
         var self = this;
         var operateEvents = {
             'click .edit': function (e, value, row, index) {
@@ -69,37 +68,33 @@ export class EnrollsComponent implements OnInit {
     }
 
     async ngOnInit() {
-        await this.AuthService.CurrentUser();
         this.get();
-        M.AutoInit();
         this.getSelect();
-        if (this.AuthService.isAdmin()) {
-            $('.bTable').bootstrapTable({
-                columns: this.columns,
-                showExport: true,
-                exportDataType: 'all',
-                exportTypes: ['excel'],
-                search: true,
-                sortName: "student.fullName",
-                sortOrder: "asc",
-                pagination: true,
-                showPaginationSwitch: true,
-                rememberOrder: true,
-                showColumns: true,
-                locale: "es-MX",
-                exportOptions: {
-                    "fileName": "Inscritos",
-                    "ignoreColumn": ["operate"]
-                }
-            })
-        }
+        $('.bTable').bootstrapTable({
+            columns: this.columns,
+            showExport: true,
+            exportDataType: 'all',
+            exportTypes: ['excel'],
+            search: true,
+            sortName: "student.fullName",
+            sortOrder: "asc",
+            pagination: true,
+            showPaginationSwitch: true,
+            rememberOrder: true,
+            showColumns: true,
+            locale: "es-MX",
+            exportOptions: {
+                "fileName": "Inscritos",
+                "ignoreColumn": ["operate"]
+            }
+        })
     }
 
     add(form?: NgForm) {
         if (form.value._id) {
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -109,7 +104,7 @@ export class EnrollsComponent implements OnInit {
             delete form.value._id;
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -141,13 +136,11 @@ export class EnrollsComponent implements OnInit {
     }
 
     get() {
-        if (this.AuthService.isAdmin()) {
-            this.service.get()
-                .subscribe(res => {
-                    var data = res as Enroll[]
-                    $('.bTable').bootstrapTable("load", data)
-                });
-        }
+        this.service.get()
+            .subscribe(res => {
+                var data = res as Enroll[]
+                $('.bTable').bootstrapTable("load", data)
+            });
     }
 
     operateFormatter() {
@@ -161,7 +154,7 @@ export class EnrollsComponent implements OnInit {
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                 });
         }
     }

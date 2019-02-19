@@ -20,7 +20,8 @@ const DirectorsSchema = new Schema({
     },
     club: {
         type: Schema.ObjectId,
-        ref: 'Clubs'
+        ref: 'Clubs',
+        required: true
     },
 });
 

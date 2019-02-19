@@ -6,7 +6,6 @@ import { Student } from '../../models/student';
 import { Club } from '../../models/club';
 import { NgForm } from '@angular/forms';
 
-declare var M: any;
 declare var $: any;
 
 @Component({
@@ -61,9 +60,7 @@ export class DirectorsComponent implements OnInit {
     }
 
     async ngOnInit() {
-        await this.AuthService.CurrentUser();
         this.get();
-        M.AutoInit();
         this.getSelect();
         $('.bTable').bootstrapTable({
             columns: this.columns,
@@ -101,7 +98,7 @@ export class DirectorsComponent implements OnInit {
 
     add(form?: NgForm) {
         if (form.value.password != "" && form.value.password != form.value.password2) {
-            M.toast({ html: 'Las contraseñas no son iguales' });
+            alert('Las contraseñas no son iguales');
             return false;
         }
         if (form.value._id) {
@@ -110,7 +107,7 @@ export class DirectorsComponent implements OnInit {
             }
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -120,7 +117,7 @@ export class DirectorsComponent implements OnInit {
             delete form.value._id;
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -151,7 +148,7 @@ export class DirectorsComponent implements OnInit {
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                 });
         }
     }

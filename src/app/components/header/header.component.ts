@@ -9,11 +9,11 @@ declare var $: any;
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+    selected: {};
     constructor(public AuthService: AuthService) { }
 
-    async ngOnInit() {
-        $('.sidenav').sidenav();
-        await this.AuthService.CurrentUser();
+    ngOnInit() {
+        //$('.sidenav').sidenav();
     }
 
     doLogout() {

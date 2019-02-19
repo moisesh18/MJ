@@ -6,8 +6,9 @@ import { EnrollsService } from '../../services/enrolls/enrolls.service';
 import { Student } from '../../models/student';
 import { NgForm } from '@angular/forms';
 
-declare var M: any;
+declare var jquery: any;
 declare var $: any;
+declare var edit: boolean;
 
 
 @Component({
@@ -18,6 +19,7 @@ declare var $: any;
 })
 export class StudentsComponent implements OnInit {
     columns: any;
+    editing: boolean = false;
     constructor(
         public service: StudentService,
         public ClubService: ClubService,
@@ -30,7 +32,8 @@ export class StudentsComponent implements OnInit {
                 self.select(row.student)
             },
             'click .delete': function (e, value, row, index) {
-                self.delete(row._id)
+                console.log(row)
+                self.delete(row.student._id)
             }
         }
         this.columns = [
@@ -140,17 +143,8 @@ export class StudentsComponent implements OnInit {
         ];
     }
 
-    async ngOnInit() {
+    ngOnInit() {
         this.get();
-        $('#studentForm #editar, .food-conditional').hide();
-        M.AutoInit();
-        $('#food-conditional').change(function () {
-            if ($(this).is(":checked")) {
-                $(".food-conditional").fadeIn();
-                return;
-            }
-            $(".food-conditional").fadeOut();
-        });
         $('.bTable').bootstrapTable({
             columns: this.columns,
             showExport: true,
@@ -164,6 +158,8 @@ export class StudentsComponent implements OnInit {
             rememberOrder: true,
             showColumns: true,
             locale: "es-MX",
+            filterControl: true,
+            filterShowClear: true,
             exportOptions: {
                 "fileName": "Estudiantes",
                 "ignoreColumn": ["operate"]
@@ -181,53 +177,46 @@ export class StudentsComponent implements OnInit {
 
     operateFormatter() {
         return [
-            '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
+            '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" *ngIf="" class="delete"><i class="material-icons">delete</i></a>'
         ].join('')
     }
 
-    addStudent(form: NgForm) {
-        if (!form.value._id) {
-            form.value._id = form.value.first_name + form.value.last_name;
+    add(form: NgForm) {
+        if (!this.editing) {
+            this.service.post(form.value)
+                .subscribe((res: any) => {
+                    this.AuthService.toast(res.message)
+                    if (res.success) {
+                        this.resetForm(form);
+                        this.get();
+                    }
+                });
+        } else {
+            this.service.put(form.value)
+                .subscribe((res: any) => {
+                    this.AuthService.toast(res.message)
+                    if (res.success) {
+                        this.resetForm(form);
+                        this.get();
+                        this.editing = false;
+                    }
+                });
         }
-        this.service.post(form.value)
-            .subscribe((res: any) => {
-                M.toast({ html: res.message });
-                if (res.success) {
-                    this.resetForm(form);
-                    this.get();
-                }
-            });
-    }
 
-    editStudent(form: NgForm) {
-        this.service.put(form.value)
-            .subscribe((res: any) => {
-                M.toast({ html: res.message });
-                if (res.success) {
-                    this.resetForm(form);
-                    this.get();
-                }
-            });
     }
 
     select(student: Student) {
-        $('#studentForm #editar').fadeIn();
-        $('#studentForm #submit').fadeToggle();
-        $('.text-area-fix').addClass('active');
-        if (student.resident) {
-            $("#residence-field").fadeIn();
-        }
+        this.editing = true;
         this.service.selected = student;
     }
 
     delete(_id: string) {
-        $('#studentForm #edit').hide();
-        $('#studentForm #submit').show();
         if (confirm('¿Estas seguro de eliminar este usuario?')) {
-            this.EnrollsService.delete(_id)
+            console.log(_id)
+            this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                 });
         }
     }
@@ -235,8 +224,6 @@ export class StudentsComponent implements OnInit {
     resetForm(form?: NgForm) {
         if (form) {
             form.reset();
-            $('#studentForm #editar').fadeToggle();
-            $('#studentForm #submit').fadeToggle();
             this.service.selected = new Student();
         }
     }

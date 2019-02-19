@@ -18,12 +18,10 @@ StudentController.getStudent = async (req, res) => {
 StudentController.createStudent = async (req, res) => {
     try {
         single = new Student(req.body);
-        if (Validations(req.body)) {
-            await single.save();
-            res.json({ success: true, message: "Completado" })
-        }
+        single._id = (single._id === undefined) ? single._id : single.first_name.replace(/\s/g, "").toLowerCase() + single.last_name.toLowerCase()
+        await single.save();
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
-        console.log(req.body);
         res.json({ message: e.message })
     }
 };
@@ -46,13 +44,6 @@ StudentController.deleteStudent = async (req, res) => {
     } catch (e) {
         res.json({ message: e.message })
     }
-}
-
-function Validations(obj) {
-    for (var o in obj) {
-        if (obj[o] == "" || !obj[o]) throw new Error("Revisa los campos");
-    }
-    return true;
 }
 
 module.exports = StudentController;

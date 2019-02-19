@@ -3,8 +3,6 @@ import { AuthService } from '../../services/auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-
-declare var M: any;
 declare var $: any;
 
 @Component({

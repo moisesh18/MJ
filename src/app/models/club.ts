@@ -4,6 +4,6 @@ export class Club {
         public name: string = '',
         public logo: string = '',
         public type: string = '',
-        public fees: number = 0
+        public fees: number = null
     ) { }
 }

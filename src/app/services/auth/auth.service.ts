@@ -4,16 +4,17 @@ import { Director } from '../../models/director';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs'
 
-declare var M: any;
+declare var $: any;
+
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
-    miprueba: string = 'test2';
     selected: Director;
-    user: any;
+    user: Director = new Director;
     ip = window.location.hostname;
     readonly URL_API = environment.baseUrl + "/api/directors";
     readonly URL_students = environment.baseUrl + "/api/students";
@@ -21,50 +22,55 @@ export class AuthService {
 
     constructor(private router: Router, private http: HttpClient) {
         this.selected = new Director();
-        this.user = new Director();
-        // if (!this.user) {
-        //     this.CurrentUser();
-        // }
     }
 
     authenticate(loginData) {
         return this.http.post(this.URL_API + "/authenticate", loginData);
     }
 
-    async CurrentUser() {
-        return await this.http.post(this.URL_API + "/me", {}).toPromise().then(
-            res => { this.user = res; }
-        );
+    toast(message, autohide?) {
+        if (true) {
+            $('.toast').toast({
+                "delay": 5000,
+                "autohide": false
+            })
+        }
+        $('.toast .toast-body').text(message);
+        $('.toast').toast('show')
     }
 
-    isAdmin() {
-        return this.user.role == "admin"
+    CurrentUser(): Observable<Director> {
+        return this.http.post<Director>(this.URL_API + "/me", {});
     }
 
-    isDirector() {
-        return this.user.role == "director" || this.isAdmin()
+    get isAdmin() {
+        return this.user && this.user.role === "admin";
     }
 
-    isSecretary() {
-        return this.user.role == "secretario" || this.isDirector()
+    get isDirector() {
+        return this.user && this.user.role === "director" || this.isAdmin;
     }
 
-    isTreasurer() {
-        return this.user.role == "tesorero" || this.isSecretary()
+    get isSecretary() {
+        return this.user && this.user.role === "secretatio" || this.isDirector;
     }
 
-    isUser() {
-        return this.user.role == "usuario" || this.isTreasurer()
+    get isTreasurer() {
+        return this.user && this.user.role === "tesorero" || this.isSecretary;
     }
 
-    soy() {
-        return this.user.role
+    get isUser() {
+        return this.user && this.user.role === "usuario" || this.isTreasurer;
+    }
+
+    get iAm() {
+        return this.user.role;
     }
 
     doLogout() {
         this.router.navigate(["/"]);
         window.localStorage.removeItem('token');
-        this.user = false;
+        this.user = undefined;
     }
 
     doLogin(form?: NgForm) {
@@ -75,7 +81,7 @@ export class AuthService {
                     this.setToken(res.token);
                     this.router.navigate(["/clubs"]);
                 }
-                M.toast({ html: res.message });
+                this.toast(res.message, true)
             });
     }
 

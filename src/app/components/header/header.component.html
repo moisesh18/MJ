@@ -1,32 +1,37 @@
 <header>
-    <nav class="light-blue darken-4">
-        <div class="container">
-            <div class="nav-extended">
-                <div class="nav-wrapper">
-                    <a routerLink="/" class="brand-logo">
-                        <img src="assets/img/mj-logo.png" alt="logo" class="responsive-img logo">
-                    </a>
-                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a routerLink="/students" *ngIf="AuthService.isUser()">Estudiantes</a></li>
-                        <li><a routerLink="/directors" *ngIf="AuthService.isSecretary()">Directiva</a></li>
-                        <li><a routerLink="/clubs" *ngIf="AuthService.isSecretary()">Clubes</a></li>
-                        <li><a routerLink="/cycles" *ngIf="AuthService.isAdmin()">Ciclos</a></li>
-                        <li><a routerLink="/enrolls" *ngIf="AuthService.isUser()">Inscritos</a></li>
-                        <li><a routerLink="/login" *ngIf="!AuthService.isLoggedIn()">Iniciar sesión</a></li>
-                        <li><a (click)="doLogout();" *ngIf="AuthService.isLoggedIn()">Cerrar sesión</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- <ul class="sidenav" id="mobile-demo">
-                <li><a routerLink="/students" *ngIf="AuthService.isSecretary()">Estudiantes</a></li>
-                <li><a routerLink="/directors" *ngIf="AuthService.isSecretary()">Directiva</a></li>
-                <li><a routerLink="/clubs" *ngIf="AuthService.isSecretary()">Clubes</a></li>
-                <li><a routerLink="/cycles" *ngIf="AuthService.isAdmin()">Ciclos</a></li>
-                <li><a routerLink="/enrolls" *ngIf="AuthService.isSecretary()">Inscritos</a></li>
-                <li><a routerLink="/login" *ngIf="!AuthService.isLoggedIn()">Iniciar sesión</a></li>
-                <li><a (click)="doLogout();" *ngIf="AuthService.isLoggedIn()">Cerrar sesión</a></li>
-            </ul> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+        <a routerLink="/" class="navbar-brand">
+            <img src="assets/img/mj-logo.png" alt="logo" class="responsive-img logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
+            aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div *ngIf="AuthService.isLoggedIn()" class="collapse navbar-collapse" id="navbarsExample09">
+            <ul class="navbar-nav mr-auto flex-fill">
+                <li class="nav-item flex-fill text-center">
+                    <span class="nav-link text-info">¡Hola {{AuthService.iAm}}!</span>
+                </li>
+                <li class="nav-item flex-fill">
+                    <a routerLink="/students" class="nav-link" *ngIf="AuthService.isUser">Estudiantes </a>
+                </li>
+                <li class="nav-item flex-fill">
+                    <a routerLink="/directors" class="nav-link" *ngIf="AuthService.isSecretary">Directiva</a>
+                </li>
+                <li class="nav-item flex-fill">
+                    <a routerLink="/clubs" class="nav-link" *ngIf="AuthService.isDirector">Clubes</a>
+                </li>
+                <li class="nav-item flex-fill">
+                    <a routerLink="/cycles" class="nav-link" *ngIf="AuthService.isAdmin">Ciclos</a>
+                </li>
+                <li class="nav-item flex-fill">
+                    <a routerLink="/enrolls" class="nav-link" *ngIf="AuthService.isUser">Inscritos</a>
+                </li>
+                <li class="nav-item flex-fill">
+                    <a (click)="doLogout();" class="nav-link" *ngIf="AuthService.isLoggedIn()">Cerrar sesión</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>

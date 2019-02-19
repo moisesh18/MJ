@@ -2,6 +2,6 @@ export class Cycle {
     constructor(
         public _id: string = '',
         public name: string = '',
-        public fees: number = 0
+        public fees: number = null
     ) { }
 }

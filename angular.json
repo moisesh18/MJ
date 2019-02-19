@@ -27,7 +27,7 @@
                             "node_modules/bootstrap-table/dist/bootstrap-table.min.css",
                             "src/assets/fonts/material-icons/material-icons.css",
                             "node_modules/@ng-select/ng-select/themes/material.theme.css",
-                            "src/assets/css/materialize.min.css",
+                            "node_modules/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.css",
                             "src/styles.css"
                         ],
                         "scripts": [
@@ -35,8 +35,9 @@
                             "node_modules/popper.js/dist/umd/popper.min.js",
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "node_modules/bootstrap-table/dist/bootstrap-table.min.js",
+                            "node_modules/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js",
+                            "node_modules/bootstrap-table/dist/locale/bootstrap-table-es-MX.min.js",
                             "node_modules/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js",
-                            "src/assets/js/materialize.min.js",
                             "node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js",
                             "node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js",
                             "node_modules/tableexport.jquery.plugin/tableExport.min.js"

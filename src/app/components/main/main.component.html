@@ -1,14 +1,15 @@
-<h3>Iniciar sesión</h3>
-<form id="form" #form="ngForm" action="">
-    <div class="row">
-        <div class="col-sm-12 input-field">
-            <input class="form-control" type="text" name="username" #username="ngModel" [(ngModel)]="AuthService.selected.username"
-                autocomplete="username" placeholder="Matricula">
-        </div>
-        <div class="col-sm-12 input-field">
-            <input class="form-control" type="password" name="password" #password="ngModel" autocomplete="current-password"
-                [(ngModel)]="AuthService.selected.password" placeholder="Contraseña">
-            <button id="submit" type="submit" class="btn right" (click)="doLogin(form)">Log In</button>
-        </div>
+<form id="form" #form="ngForm" class="form-signin flex-shrink-0">
+    <h1 class="h3 mb-3 font-weight-normal">Iniciar sesion</h1>
+    <div class="form-group">
+        <label for="inputEmail" class="sr-only">Matricula</label>
+        <input type="text" id="inputEmail" #username="ngModel" class="form-control" placeholder="Matricula"
+            name="username" [(ngModel)]="AuthService.selected.username" autocomplete="username" required=""
+            autofocus="">
     </div>
+    <div class="form-group">
+        <label for="inputPassword" class="sr-only">Contraseña</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Contraseña"
+            #password="ngModel" autocomplete="current-password" [(ngModel)]="AuthService.selected.password" required="">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" (click)="doLogin(form)" type="submit">Iniciar sesión</button>
 </form>

@@ -39,10 +39,8 @@ EnrollController.get = async (req, res) => {
 EnrollController.create = async (req, res) => {
     try {
         single = new Enroll(req.body);
-        if (Validations(req.body)) {
-            await single.save();
-            res.json({ success: true, message: "Completado" })
-        }
+        await single.save();
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -65,13 +63,6 @@ EnrollController.delete = async (req, res) => {
     } catch (e) {
         res.json({ message: e.message })
     }
-}
-
-function Validations(obj) {
-    for (var o in obj) {
-        if (obj[o] == "" || !obj[o]) throw new Error("Revisa los campos" + obj[o]);
-    }
-    return true;
 }
 
 module.exports = EnrollController;

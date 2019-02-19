@@ -4,7 +4,6 @@ import { Club } from '../../models/club';
 import { AuthService } from '../../services/auth/auth.service';
 import { NgForm } from '@angular/forms';
 
-declare var M: any;
 declare var $: any;
 
 @Component({
@@ -65,7 +64,6 @@ export class ClubsComponent implements OnInit {
 
     ngOnInit() {
         this.get();
-        M.AutoInit();
         $('.bTable').bootstrapTable({
             columns: this.columns,
             showExport: true,
@@ -87,10 +85,11 @@ export class ClubsComponent implements OnInit {
     }
 
     add(form?: NgForm) {
+
         if (form.value._id) {
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -100,7 +99,7 @@ export class ClubsComponent implements OnInit {
             delete form.value._id;
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -127,7 +126,7 @@ export class ClubsComponent implements OnInit {
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    M.toast({ html: res.message });
+                    this.AuthService.toast(res.message)
                 });
         }
     }

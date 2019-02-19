@@ -1,11 +1,27 @@
-<div class="row">
-    <form id="form" #form="ngForm" class="row">
-        <div class="row">
-            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
-            <div class="input-field col-sm-12">
+<div class="row" *ngIf="AuthService.isAdmin">
+    <form id="form" #form="ngForm" class="col-md-8 offset-md-2">
+        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
+        <div class="form-row">
+            <div class="form-group col-sm-12 col-md-6">
+                <ng-select [items]="select_cycles" class="disabled" [virtualScroll]="true" bindLabel="name"
+                    bindValue="_id" placeholder="Selecciona el ciclo" name="cycle" #cycle="ngModel"
+                    [(ngModel)]="service.selected.cycle._id" autocomplete="off">
+                </ng-select>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <ng-select [items]="select_club" class="disabled" [virtualScroll]="true" bindLabel="name"
+                    bindValue="_id" placeholder="Selecciona el club" name="club" #club="ngModel"
+                    [(ngModel)]="service.selected.club._id" autocomplete="off">
+                </ng-select>
+            </div>
+            <div class="form-group col-sm-12">
+                <input type="number" name="fees" #fees="ngModel" [(ngModel)]="service.selected.fees"
+                    placeholder="Pago de inscripcion" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group col-sm-12 col-md-12">
                 <ng-select [items]="select_student" [virtualScroll]="true" bindLabel="student" bindValue="_id"
-                    placeholder="Selecciona el estudiante" name="student" #student="ngModel" [(ngModel)]="service.selected.student._id"
-                    autocomplete="off">
+                    placeholder="Selecciona el estudiante" name="student" #student="ngModel"
+                    [(ngModel)]="service.selected.student._id" autocomplete="off">
                     <ng-template ng-typetosearch-tmp>
                         <div class="ng-option disabled">
                             Escribe la matricula o el nombre del empleado...
@@ -13,32 +29,20 @@
                     </ng-template>
                     <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
                         <div class="ng-option disabled">
-                            "{{searchTerm}}" no se ha inscrito en ningun club.
+                            "{{searchTerm}}" no se ha inscrito en ningun club. <a routerLink="/students"
+                                class="nav-link">Inscribelo</a>
                         </div>
                     </ng-template>
                 </ng-select>
             </div>
-            <div class="input-field col-sm-12">
-                <ng-select [items]="select_club" [virtualScroll]="true" bindLabel="name" bindValue="_id" placeholder="Selecciona el club"
-                    name="club" #club="ngModel" [(ngModel)]="service.selected.club._id" autocomplete="off">
-                </ng-select>
-            </div>
-            <div class="input-field col-sm-12">
-                <input type="number" name="fees" #fees="ngModel" [(ngModel)]="service.selected.fees" placeholder="Pago de inscripcion"
-                    autocomplete="off">
-            </div>
-            <div class="input-field col-sm-12">
-                <ng-select [items]="select_cycles" [virtualScroll]="true" bindLabel="name" bindValue="_id" placeholder="Selecciona el ciclo"
-                    name="cycle" #cycle="ngModel" [(ngModel)]="service.selected.cycle._id" autocomplete="off">
-                </ng-select>
-            </div>
-            <div class="input-field col-sm-12">
-                <button class="btn left" (click)="resetForm(form)">Limpiar formulario</button>
-                <button id="submit" type="submit" class="btn right" (click)="add(form)">Guardar</button>
-            </div>
+        </div>
+        <div class="d-flex justify-content-around">
+            <button class="btn left" (click)="resetForm(form)">Limpiar</button>
+            <button id="submit" type="submit" class="btn right" (click)="add(form)">Guardar</button>
         </div>
     </form>
 </div>
+
 <div class="row">
     <table class="bTable"></table>
 </div>

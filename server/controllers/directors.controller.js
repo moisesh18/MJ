@@ -34,10 +34,8 @@ DirectorController.getDirectors = async (req, res) => {
 DirectorController.createDirector = async (req, res) => {
     try {
         single = new Director(req.body);
-        if (Validations(req.body)) {
-            await single.save();
-            res.json({ success: true, message: "Completado" })
-        }
+        await single.save();
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -112,13 +110,6 @@ DirectorController.deleteDirector = async (req, res) => {
     } catch (e) {
         res.json({ message: e.message })
     }
-}
-
-function Validations(obj) {
-    for (var o in obj) {
-        if (obj[o] == "" || !obj[o]) return false;
-    }
-    return true;
 }
 
 module.exports = DirectorController;

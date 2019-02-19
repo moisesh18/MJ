@@ -4,7 +4,6 @@ import { Director } from '../../models/director';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
-declare var M: any;
 @Injectable({
     providedIn: 'root'
 })

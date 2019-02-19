@@ -2,18 +2,19 @@ const Cycle = require('../models/cycle');
 const CycleController = {};
 const mongoose = require('mongoose');
 let single = {};
+
 CycleController.get = async (req, res) => {
-    single = await Cycle.find().sort({ "_id": -1 }).limit(1)
+    single = await Cycle.find().sort({ "_id": 'desc' })
+    //.limit(1)
+    console.log(single)
     res.json(single);
 }
 
 CycleController.create = async (req, res) => {
     try {
         single = new Cycle(req.body);
-        if (Validations(req.body)) {
-            await single.save();
-            res.json({ success: true, message: "Completado" })
-        }
+        await single.save();
+        res.json({ success: true, message: "Completado" })
     } catch (e) {
         res.json({ message: e.message })
     }
@@ -53,13 +54,6 @@ CycleController.delete = async (req, res) => {
     } catch (e) {
         res.json({ message: e.message })
     }
-}
-
-function Validations(obj) {
-    for (var o in obj) {
-        if (obj[o] == "" || !obj[o]) throw new Error("Revisa los campos");
-    }
-    return true;
 }
 
 module.exports = CycleController;

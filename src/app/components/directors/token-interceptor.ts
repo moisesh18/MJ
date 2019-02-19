@@ -10,7 +10,6 @@ import { Observable, empty } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from "@angular/router";
 
-declare var M: any;
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(private injector: Injector, private router: Router) { }
@@ -28,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
                     },
                     err => {
                         if (err.status === 401 || err.status === 403) {
-                            M.toast({ html: "No autorizado" });
+                            alert("No autorizado");
                             authService.removeToken();
                             this.router.navigate(['/']);
                         }

@@ -17,7 +17,6 @@ import { EnrollsComponent } from './components/enrolls/enrolls.component';
 import { MainComponent } from './components/main/main.component';
 import { AuthService } from './services/auth/auth.service';
 import { AuthGuard } from './guards/auth-guard';
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -39,7 +38,7 @@ import { AuthGuard } from './guards/auth-guard';
         RouterModule.forRoot([
             {
                 path: '',
-                component: HomeComponent
+                component: MainComponent
             },
             {
                 path: 'students',
