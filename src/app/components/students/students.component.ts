@@ -32,7 +32,6 @@ export class StudentsComponent implements OnInit {
                 self.select(row.student)
             },
             'click .delete': function (e, value, row, index) {
-                console.log(row)
                 self.delete(row.student._id)
             }
         }
@@ -212,7 +211,6 @@ export class StudentsComponent implements OnInit {
 
     delete(_id: string) {
         if (confirm('¿Estas seguro de eliminar este usuario?')) {
-            console.log(_id)
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();

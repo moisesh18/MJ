@@ -6,7 +6,6 @@ let single = {};
 CycleController.get = async (req, res) => {
     single = await Cycle.find().sort({ "_id": 'desc' })
     //.limit(1)
-    console.log(single)
     res.json(single);
 }
 
