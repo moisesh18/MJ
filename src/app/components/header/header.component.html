@@ -8,9 +8,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div *ngIf="AuthService.isLoggedIn()" class="collapse navbar-collapse" id="navbarsExample09">
+        <div class="collapse navbar-collapse" id="navbarsExample09">
             <ul class="navbar-nav mr-auto flex-fill">
-                <li class="nav-item flex-fill text-center">
+                <li *ngIf="AuthService.isLoggedIn()" class="nav-item flex-fill text-center">
                     <span class="nav-link text-info">¡Hola {{AuthService.iAm}}!</span>
                 </li>
                 <li class="nav-item flex-fill">
@@ -30,6 +30,9 @@
                 </li>
                 <li class="nav-item flex-fill">
                     <a (click)="doLogout();" class="nav-link" *ngIf="AuthService.isLoggedIn()">Cerrar sesión</a>
+                </li>
+                <li class="nav-item flex-fill">
+                    <a routerLink="/login" class="nav-link" *ngIf="!AuthService.isLoggedIn()">Iniciar sesion</a>
                 </li>
             </ul>
         </div>

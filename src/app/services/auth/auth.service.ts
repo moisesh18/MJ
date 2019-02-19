@@ -29,10 +29,9 @@ export class AuthService {
     }
 
     toast(message, autohide?) {
-        if (true) {
+        if (autohide) {
             $('.toast').toast({
-                "delay": 5000,
-                "autohide": false
+                "delay": 5000
             })
         }
         $('.toast .toast-body').text(message);

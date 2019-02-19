@@ -38,7 +38,7 @@ import { AuthGuard } from './guards/auth-guard';
         RouterModule.forRoot([
             {
                 path: '',
-                component: MainComponent
+                component: HomeComponent
             },
             {
                 path: 'students',
