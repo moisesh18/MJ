@@ -42,7 +42,7 @@ EnrollController.create = async (req, res) => {
         await single.save();
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e.message })
+        res.json({ message: e})
     }
 };
 
@@ -52,7 +52,7 @@ EnrollController.edit = async (req, res) => {
         await Enroll.findByIdAndUpdate(single._id, { $set: single }, { new: true });
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e.message })
+        res.json({ message: e})
     }
 }
 
@@ -61,7 +61,7 @@ EnrollController.delete = async (req, res) => {
         await Enroll.findByIdAndRemove(req.params.id);
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e.message })
+        res.json({ message: e})
     }
 }
 

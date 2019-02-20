@@ -2,9 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
-const {
-    mongoose
-} = require('./database');
+const { mongoose } = require('./database');
 const VerifyToken = require('./verifyToken');
 
 //Server global settings

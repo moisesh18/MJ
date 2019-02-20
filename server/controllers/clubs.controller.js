@@ -19,7 +19,7 @@ ClubController.create = async (req, res) => {
         await single.save();
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e.message })
+        res.json({ message: e})
     }
 };
 
@@ -52,7 +52,7 @@ ClubController.edit = async (req, res) => {
         await Club.findByIdAndUpdate(single._id, { $set: single }, { new: true });
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e.message })
+        res.json({ message: e})
     }
 }
 
@@ -61,7 +61,7 @@ ClubController.delete = async (req, res) => {
         await Club.findByIdAndRemove(req.params.id);
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e.message })
+        res.json({ message: e})
     }
 }
 
