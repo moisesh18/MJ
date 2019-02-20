@@ -1,6 +1,6 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-        <a routerLink="/" class="navbar-brand">
+        <a routerLink="/" class="navbar-brand mr-auto flex-fill  text-center">
             <img src="assets/img/mj-logo.png" alt="logo" class="responsive-img logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
@@ -13,28 +13,36 @@
                 <li *ngIf="AuthService.isLoggedIn()" class="nav-item flex-fill text-center">
                     <span class="nav-link text-info">¡Hola {{AuthService.iAm}}!</span>
                 </li>
-                <li class="nav-item flex-fill">
-                    <a routerLink="/students" class="nav-link" *ngIf="AuthService.gisSecretary">Estudiantes </a>
+                <li class="nav-item flex-fill" *ngIf="AuthService.gisSecretary">
+                    <a routerLink="/students" class="nav-link">Estudiantes </a>
                 </li>
-                <li class="nav-item flex-fill">
-                    <a routerLink="/directors" class="nav-link" *ngIf="AuthService.gisSecretary">Directiva</a>
+                <li class="nav-item flex-fill" *ngIf="AuthService.gisSecretary">
+                    <a routerLink="/directors" class="nav-link">Directiva</a>
                 </li>
-                <li class="nav-item flex-fill">
-                    <a routerLink="/clubs" class="nav-link" *ngIf="AuthService.gisDirector">Clubes</a>
+                <li class="nav-item flex-fill" *ngIf="AuthService.gisDirector">
+                    <a routerLink="/clubs" class="nav-link">Clubes</a>
                 </li>
-                <li class="nav-item flex-fill">
-                    <a routerLink="/cycles" class="nav-link" *ngIf="AuthService.gisAdmin">Ciclos</a>
+                <li class="nav-item flex-fill" *ngIf="AuthService.gisAdmin">
+                    <a routerLink="/cycles" class="nav-link">Ciclos</a>
                 </li>
-                <li class="nav-item flex-fill">
-                    <a routerLink="/enrolls" class="nav-link" *ngIf="AuthService.gisSecretary">Inscritos</a>
+                <li class="nav-item flex-fill" *ngIf="AuthService.gisSecretary">
+                    <a routerLink="/enrolls" class="nav-link">Inscritos</a>
                 </li>
-                <li class="nav-item flex-fill">
-                    <a (click)="doLogout();" class="nav-link" *ngIf="AuthService.isLoggedIn()">Cerrar sesión</a>
+                <li class="nav-item flex-fill" *ngIf="AuthService.isLoggedIn()">
+                    <a (click)="doLogout();" class="nav-link">Cerrar sesión</a>
                 </li>
-                <li class="nav-item flex-fill">
-                    <a routerLink="/login" class="nav-link" *ngIf="!AuthService.isLoggedIn()">Iniciar sesion</a>
+                <li class="nav-item flex-fill" *ngIf="!AuthService.isLoggedIn()">
+                    <a routerLink="/login" class="nav-link">Iniciar sesion</a>
                 </li>
             </ul>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
+            aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
         </div>
     </nav>
 </header>
