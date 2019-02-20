@@ -1,4 +1,5 @@
 const Student = require('../models/student');
+const Enroll = require('../models/enroll');
 const StudentController = {};
 let single = {};
 StudentController.getStudents = async (req, res) => {
@@ -38,7 +39,7 @@ StudentController.editStudent = async (req, res) => {
 
 StudentController.deleteStudent = async (req, res) => {
     try {
-        await Club.findByIdAndRemove(req.params.id);
+        await Enroll.find({ student: req.params.id }).remove;
         await Student.findByIdAndRemove(req.params.id);
         res.json({ success: true, message: "Completado" })
     } catch (e) {

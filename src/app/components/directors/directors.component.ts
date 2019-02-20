@@ -17,7 +17,7 @@ declare var $: any;
 export class DirectorsComponent implements OnInit {
     select_student: any;
     select_club: any;
-    columns: any;
+    columns: {};
     constructor(public AuthService: AuthService, public service: DirectorsService) {
         var self = this;
         var operateEvents = {
@@ -48,8 +48,7 @@ export class DirectorsComponent implements OnInit {
                 title: 'Club',
                 field: 'club.name',
                 sortable: true
-            },
-            {
+            }, {
                 field: 'operate',
                 title: 'Operaciones',
                 align: 'center',

@@ -13,8 +13,6 @@ declare var $: any;
     providers: [ClubService]
 })
 export class ClubsComponent implements OnInit {
-    configuration;
-    columns: any;
     constructor(public service: ClubService,
         public AuthService: AuthService) {
         var self = this;
@@ -26,34 +24,14 @@ export class ClubsComponent implements OnInit {
                 self.delete(row._id)
             }
         }
-        this.columns = [
+        this.service.columns = Object.assign(this.service.columns[0],
             [{
-                title: 'ID',
-                field: '_id',
-                sortable: true
-            }, {
-                title: 'Nombre',
-                field: 'name',
-                sortable: true
-            },
-            {
-                title: 'Costo de inscripcion',
-                field: 'fees',
-                sortable: true
-            },
-            {
-                title: 'Tipo',
-                field: 'type',
-                sortable: true
-            },
-            {
                 field: 'operate',
                 title: 'Operaciones',
                 align: 'center',
                 events: operateEvents,
                 formatter: this.operateFormatter()
-            }]
-        ];
+            }])
     }
 
     operateFormatter() {
@@ -65,7 +43,7 @@ export class ClubsComponent implements OnInit {
     ngOnInit() {
         this.get();
         $('.bTable').bootstrapTable({
-            columns: this.columns,
+            columns: this.service.columns,
             showExport: true,
             exportDataType: 'all',
             exportTypes: ['excel'],

@@ -9,7 +9,7 @@ const StudentsSchema = new Schema({
     career_year: { type: Number },
     birthday: { type: String },
     email: { type: String },
-    phone: { type: String, required: true },
+    phone: { type: String },
     shirt_size: { type: String },
     resident: { type: Boolean },
     residence: { type: String },
@@ -20,6 +20,10 @@ const StudentsSchema = new Schema({
     drugs: { type: String },
     allergy: { type: String },
     recent_illness: { type: String },
+    baptized: { type: Boolean },
+    religion: { type: String },
+    mexican: { type: Boolean },
+    emergency_phone: { type: String }
 }, { _id: false });
 
 StudentsSchema.virtual('fullName').get(function () {

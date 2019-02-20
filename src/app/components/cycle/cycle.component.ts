@@ -13,7 +13,7 @@ declare var $: any;
     providers: [CycleService]
 })
 export class CycleComponent implements OnInit {
-    columns: any;
+    columns: {};
     constructor(public service: CycleService,
         public AuthService: AuthService) {
         var self = this;
@@ -35,8 +35,7 @@ export class CycleComponent implements OnInit {
                 title: 'Costo de inscripcion',
                 field: 'fees',
                 sortable: true
-            },
-            {
+            }, {
                 field: 'operate',
                 title: 'Operaciones',
                 align: 'center',

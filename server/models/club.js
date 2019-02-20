@@ -8,10 +8,6 @@ const ClubsSchema = new Schema({
         type: String,
         required: true
     },
-    logo: {
-        type: String,
-        required: true
-    },
     type: {
         type: String,
         required: true

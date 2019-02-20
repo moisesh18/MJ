@@ -19,5 +19,9 @@ export class Student {
         public allergy: string = null,
         public recent_illness: string = null,
         public cycle: any = '',
+        public baptized: boolean = false,
+        public religion: string = "",
+        public mexican: boolean = true,
+        public emergency_phone: string = ""
     ) { }
 }

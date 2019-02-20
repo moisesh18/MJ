@@ -17,8 +17,18 @@ DirectorController.getDirectors = async (req, res) => {
                 path: 'club',
                 select: 'name'
             });
-    } else {
+    } else if (req.user.role == "director") {
         single = await Director.find({ club: req.user.club })
+            .populate({
+                path: 'student',
+                select: "first_name last_name"
+            })
+            .populate({
+                path: 'club',
+                select: 'name'
+            });
+    } else {
+        single = await Director.find({ student: req.user.username })
             .populate({
                 path: 'student',
                 select: "first_name last_name"

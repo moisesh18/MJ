@@ -1,4 +1,4 @@
-<div *ngIf="AuthService.isUser">
+<div>
     <form id="form" #form="ngForm" class="row text-center">
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
         <div class="col-sm-12 col-md-6">
@@ -45,6 +45,10 @@
                 <input type="tel" class="form-control validate" name="phone" #phone="ngModel"
                     [(ngModel)]="service.selected.phone" placeholder="Telefono">
             </div>
+            <div class="form-group col-sm-12">
+                <input type="text" class="form-control validate" name="religion" #religion="ngModel"
+                    [(ngModel)]="service.selected.religion" placeholder="Religion">
+            </div>
         </div>
 
         <div class="col-sm-12 col-md-6">
@@ -55,12 +59,26 @@
                 </ng-select>
             </div>
             <div class="form-group col-sm-12">
-                <div class="form-check">
+                <div class="form-check form-check-inline">
                     <input type="checkbox" id="" name="resident" #resident="ngModel"
                         [(ngModel)]="service.selected.resident" [checked]="service.selected.resident"
                         class="form-check-input" type="checkbox" id="resident">
                     <label class="form-check-label" for="defaultCheck1">
                         Interno?
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="baptized" #baptized="ngModel" [(ngModel)]="service.selected.baptized"
+                        [checked]="service.selected.baptized" class="form-check-input" type="checkbox" id="baptized">
+                    <label class="form-check-label" for="defaultCheck1">
+                        ¿Bautizado?
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="mexican" #mexican="ngModel" [(ngModel)]="service.selected.mexican"
+                        [checked]="service.selected.mexican" class="form-check-input" type="checkbox" id="mexican">
+                    <label class="form-check-label" for="defaultCheck1">
+                        ¿Mexicano?
                     </label>
                 </div>
             </div>
@@ -111,7 +129,7 @@
                         <span class="input-group-text" id="basic-addon3">Tipo de sangre</span>
                     </div>
                     <input type="text" name="blood_type" #blood_type="ngModel" [(ngModel)]="service.selected.blood_type"
-                        class="form-control" data-position="bottom" placeholder="Tipo de sangre">
+                        class="form-control" data-position="bottom">
                 </div>
             </div>
             <div class="form-group col-sm-12">
@@ -119,7 +137,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Mediamentos</span>
                     </div> <textarea name="drugs" #drugs="ngModel" [(ngModel)]="service.selected.drugs"
-                        class="materialize-textarea" class="form-control" placeholder="¿Toma medicamentos?"></textarea>
+                        class="materialize-textarea" class="form-control"></textarea>
                 </div>
             </div>
             <div class="form-group col-sm-12">
@@ -128,7 +146,7 @@
                         <span class="input-group-text">Alergias</span>
                     </div>
                     <textarea name="allergy" #allergy="ngModel" [(ngModel)]="service.selected.allergy"
-                        placeholder="¿Alergias?" class="form-control"></textarea>
+                        class="form-control"></textarea>
                 </div>
             </div>
             <div class="form-group col-sm-12">
@@ -137,8 +155,16 @@
                         <span class="input-group-text">Cirugias recientes</span>
                     </div>
                     <textarea name="recent_illness" #recent_illness="ngModel"
-                        [(ngModel)]="service.selected.recent_illness" class="form-control"
-                        placeholder="¿Cirugias recientes?"></textarea>
+                        [(ngModel)]="service.selected.recent_illness" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Teléfono de emergencia</span>
+                    </div>
+                    <input type="text" name="emergency_phone" #emergency_phone="ngModel"
+                        [(ngModel)]="service.selected.emergency_phone" class="form-control" data-position="bottom">
                 </div>
             </div>
         </div>

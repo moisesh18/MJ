@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { EnrollsService } from '../../services/enrolls/enrolls.service';
 import { Student } from '../../models/student';
 import { NgForm } from '@angular/forms';
+import { async } from '@angular/core/testing';
 
 declare var jquery: any;
 declare var $: any;
@@ -18,7 +19,6 @@ declare var edit: boolean;
     providers: [StudentService]
 })
 export class StudentsComponent implements OnInit {
-    columns: any;
     editing: boolean = false;
     constructor(
         public service: StudentService,
@@ -35,117 +35,23 @@ export class StudentsComponent implements OnInit {
                 self.delete(row.student._id)
             }
         }
-        this.columns = [
+        this.service.columns = Object.assign(this.service.columns[0],
             [{
-                title: 'Matricula',
-                field: 'student._id',
-                sortable: true
-            },
-            {
-                title: 'Nombre',
-                field: 'student.fullName',
-                sortable: true
-            },
-            {
-                title: 'Carrera',
-                field: 'student.career',
-                sortable: true
-            },
-            {
-                title: 'Año',
-                field: 'student.career_year',
-                sortable: true
-            },
-            {
-                title: 'Fecha de nacimiento',
-                field: 'student.birthday',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Email',
-                field: 'student.email',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Telefono',
-                field: 'student.phone',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Talla',
-                field: 'student.shirt_size',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Interno',
-                field: 'student.resident',
-                sortable: true
-            },
-            {
-                title: 'Residencia',
-                field: 'student.residence',
-                sortable: true
-            },
-            {
-                title: 'Desayuno',
-                field: 'student.breakfast',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Comida',
-                field: 'student.lunch',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Cena',
-                field: 'student.dinner',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Tipo de sangre',
-                field: 'student.blood_type',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Medicinas',
-                field: 'student.drugs',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Alergias',
-                field: 'student.allergy',
-                sortable: true,
-                visible: false
-            },
-            {
-                title: 'Cirugias recientes',
-                field: 'student.recent_illness',
-                sortable: true,
-                visible: false
-            },
-            {
                 field: 'operate',
                 title: 'Operaciones',
                 align: 'center',
                 events: operateEvents,
                 formatter: this.operateFormatter()
-            }]
-        ];
+            }])
     }
 
     ngOnInit() {
+        if (this.AuthService.user.role == null) {
+            this.AuthService.CurrentUser().subscribe(data => this.AuthService.user = data);
+        }
         this.get();
         $('.bTable').bootstrapTable({
-            columns: this.columns,
+            columns: this.service.columns,
             showExport: true,
             exportDataType: 'all',
             exportTypes: ['excel'],
@@ -175,9 +81,15 @@ export class StudentsComponent implements OnInit {
     }
 
     operateFormatter() {
-        return [
-            '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" *ngIf="" class="delete"><i class="material-icons">delete</i></a>'
-        ].join('')
+        if (this.AuthService.gisAdmin) {
+            return [
+                '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
+            ].join('')
+        } else {
+            return [
+                '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a>'
+            ].join('')
+        }
     }
 
     add(form: NgForm) {

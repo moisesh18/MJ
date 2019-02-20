@@ -16,6 +16,7 @@ export class EnrollsService {
     students: Student[];
     clubs: Club[];
     cycles: Cycle[];
+    columns: {};
     ip = window.location.hostname;
     readonly URL_API = environment.baseUrl + '/api/enrolls';
     readonly URL_STUDENTS = environment.baseUrl + '/api/students';
@@ -23,6 +24,35 @@ export class EnrollsService {
     readonly URL_CYCLES = environment.baseUrl + '/api/cycles';
     constructor(private http: HttpClient) {
         this.selected = new Enroll();
+
+        this.columns = [
+            [{
+                title: 'Matricula',
+                field: 'student._id',
+                sortable: true
+            },
+            {
+                title: 'Nombre',
+                field: 'student.fullName',
+                sortable: true
+            },
+            {
+                title: 'Club',
+                field: 'club.name',
+                sortable: true
+            },
+            {
+                title: 'Pago',
+                field: 'fees',
+                sortable: true
+            },
+            {
+                title: 'Ciclo',
+                field: 'cycle.name',
+                sortable: true
+            }]
+        ];
+
     }
 
     get() {

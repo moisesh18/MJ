@@ -10,6 +10,7 @@ export class StudentService {
     selected: Student;
     careers: {};
     shirt_size: {};
+    columns: {};
     public students: Student[];
     ip = window.location.hostname;
     readonly URL_API = environment.baseUrl + '/api/students';
@@ -69,6 +70,128 @@ export class StudentService {
             { "name": "Industrial y de Sistemas", "faculty": "Ingenieria" },
             { "name": "Teologia", "faculty": "Teologia" },
             { "name": "Otras", "faculty": "Otras" }
+        ];
+        this.columns = [
+            [{
+                title: 'Matricula',
+                field: 'student._id',
+                sortable: true
+            },
+            {
+                title: 'Nombre',
+                field: 'student.fullName',
+                sortable: true
+            },
+            {
+                title: 'Carrera',
+                field: 'student.career',
+                sortable: true
+            },
+            {
+                title: 'Año',
+                field: 'student.career_year',
+                sortable: true
+            },
+            {
+                title: 'Fecha de nacimiento',
+                field: 'student.birthday',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Email',
+                field: 'student.email',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Telefono',
+                field: 'student.phone',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Talla',
+                field: 'student.shirt_size',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Interno',
+                field: 'student.resident',
+                sortable: true
+            },
+            {
+                title: 'Residencia',
+                field: 'student.residence',
+                sortable: true
+            },
+            {
+                title: 'Desayuno',
+                field: 'student.breakfast',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Comida',
+                field: 'student.lunch',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Cena',
+                field: 'student.dinner',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Tipo de sangre',
+                field: 'student.blood_type',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Medicinas',
+                field: 'student.drugs',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Alergias',
+                field: 'student.allergy',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Cirugias recientes',
+                field: 'student.recent_illness',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Bautizado',
+                field: 'student.baptized',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Religion',
+                field: 'student.religion',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Mexicano',
+                field: 'student.mexican',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Telefono de emergencia',
+                field: 'student.emergency_phone',
+                sortable: true,
+                visible: false
+            }]
         ];
         this.selected = new Student();
     }

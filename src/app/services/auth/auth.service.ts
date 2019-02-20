@@ -29,9 +29,9 @@ export class AuthService {
     }
 
     toast(message, autohide?) {
-        if (autohide) {
+        if (true) {
             $('.toast').toast({
-                "delay": 5000
+                "delay": 500000000
             })
         }
         $('.toast .toast-body').text(message);
@@ -42,24 +42,30 @@ export class AuthService {
         return this.http.post<Director>(this.URL_API + "/me", {});
     }
 
-    get isAdmin() {
+
+    get gisAdmin() {
         return this.user && this.user.role === "admin";
     }
 
-    get isDirector() {
-        return this.user && this.user.role === "director" || this.isAdmin;
+    get gisDirector() {
+        return this.user && this.user.role === "director" || this.gisAdmin;
     }
 
-    get isSecretary() {
-        return this.user && this.user.role === "secretatio" || this.isDirector;
+    get gisSecretary() {
+        return this.user && this.user.role === "secretario" || this.gisDirector;
     }
 
-    get isTreasurer() {
-        return this.user && this.user.role === "tesorero" || this.isSecretary;
+    async isAdmin() {
+        return await this.user && this.user.role === "admin";
     }
 
-    get isUser() {
-        return this.user && this.user.role === "usuario" || this.isTreasurer;
+    async isDirector() {
+        return await this.user && this.user.role === "director" || this.isAdmin;
+    }
+
+    async isSecretary() {
+        console.log(this.user.role)
+        return await this.user && this.user.role === "secretario" || this.isDirector;
     }
 
     get iAm() {

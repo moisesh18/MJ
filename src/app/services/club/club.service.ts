@@ -10,10 +10,33 @@ export class ClubService {
     selected: Club;
     selectOptions: {};
     plural: Club[];
+    columns: {};
     ip = window.location.hostname;
     readonly URL_API = environment.baseUrl + "/api/clubs";
     constructor(private http: HttpClient) {
         this.selected = new Club();
+        this.columns = [
+            [{
+                title: 'ID',
+                field: '_id',
+                sortable: true
+            }, {
+                title: 'Nombre',
+                field: 'name',
+                sortable: true
+            },
+            {
+                title: 'Costo de inscripcion',
+                field: 'fees',
+                sortable: true
+            },
+            {
+                title: 'Tipo',
+                field: 'type',
+                sortable: true
+            }]
+        ];
+
     }
 
     get() {

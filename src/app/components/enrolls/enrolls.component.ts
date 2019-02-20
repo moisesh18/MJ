@@ -19,7 +19,6 @@ export class EnrollsComponent implements OnInit {
     select_student: any;
     select_club: any;
     select_cycles: any;
-    columns: any;
     constructor(public service: EnrollsService, public AuthService: AuthService) {
         var self = this;
         var operateEvents = {
@@ -30,48 +29,21 @@ export class EnrollsComponent implements OnInit {
                 self.delete(row._id)
             }
         }
-
-        this.columns = [
+        this.service.columns = Object.assign(this.service.columns[0],
             [{
-                title: 'Matricula',
-                field: 'student._id',
-                sortable: true
-            },
-            {
-                title: 'Nombre',
-                field: 'student.fullName',
-                sortable: true
-            },
-            {
-                title: 'Club',
-                field: 'club.name',
-                sortable: true
-            },
-            {
-                title: 'Pago',
-                field: 'fees',
-                sortable: true
-            },
-            {
-                title: 'Ciclo',
-                field: 'cycle.name',
-                sortable: true
-            },
-            {
                 field: 'operate',
                 title: 'Operaciones',
                 align: 'center',
                 events: operateEvents,
                 formatter: this.operateFormatter()
-            }]
-        ];
+            }])
     }
 
     async ngOnInit() {
         this.get();
         this.getSelect();
         $('.bTable').bootstrapTable({
-            columns: this.columns,
+            columns: this.service.columns,
             showExport: true,
             exportDataType: 'all',
             exportTypes: ['excel'],
