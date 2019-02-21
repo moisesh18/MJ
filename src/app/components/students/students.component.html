@@ -2,7 +2,7 @@
     <form id="form" #form="ngForm" class="row text-center">
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
         <div class="col-sm-12 col-md-6">
-            <div class="form-group col-sm-12">
+            <div class="form-group col-sm-12" *ngIf="!editing">
                 <input type="text" name="_id" class="form-control" #_id="ngModel" data-position="top"
                     [(ngModel)]="service.selected._id" placeholder="Matricula (si no tiene, déjalo vacío)"
                     autocomplete="off">

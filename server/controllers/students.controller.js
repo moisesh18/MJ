@@ -12,18 +12,18 @@ StudentController.getStudent = async (req, res) => {
         single = await Student.findById(req.params.id);
         res.json(single);
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e })
     }
 }
 
 StudentController.createStudent = async (req, res) => {
     try {
-        single = new Student(req.body);
-        single._id = (single._id === undefined) ? single._id : single.first_name.replace(/\s/g, "").toLowerCase() + single.last_name.toLowerCase()
+        single = new Student(req.body)
+        single._id = (single._id != "") ? single._id : camelize(single.first_name + " " + single.last_name)
         await single.save();
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e })
     }
 };
 
@@ -33,7 +33,7 @@ StudentController.editStudent = async (req, res) => {
         await Student.findByIdAndUpdate(single._id, { $set: single }, { new: true });
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e })
     }
 }
 
@@ -43,7 +43,7 @@ StudentController.deleteStudent = async (req, res) => {
         await Student.findByIdAndRemove(req.params.id);
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e })
     }
 }
 

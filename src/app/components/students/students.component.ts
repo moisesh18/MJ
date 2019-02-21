@@ -20,6 +20,7 @@ declare var edit: boolean;
 })
 export class StudentsComponent implements OnInit {
     editing: boolean = false;
+    columns: {};
     constructor(
         public service: StudentService,
         public ClubService: ClubService,
@@ -35,14 +36,134 @@ export class StudentsComponent implements OnInit {
                 self.delete(row.student._id)
             }
         }
-        this.service.columns = Object.assign(this.service.columns[0],
+        this.columns = [
             [{
+                title: 'Matricula',
+                field: 'student._id',
+                sortable: true
+            },
+            {
+                title: 'Nombre',
+                field: 'student.fullName',
+                sortable: true
+            },
+            {
+                title: 'Carrera',
+                field: 'student.career',
+                sortable: true
+            },
+            {
+                title: 'Año',
+                field: 'student.career_year',
+                sortable: true
+            },
+            {
+                title: 'Fecha de nacimiento',
+                field: 'student.birthday',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Email',
+                field: 'student.email',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Telefono',
+                field: 'student.phone',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Talla',
+                field: 'student.shirt_size',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Interno',
+                field: 'student.resident',
+                sortable: true
+            },
+            {
+                title: 'Residencia',
+                field: 'student.residence',
+                sortable: true
+            },
+            {
+                title: 'Desayuno',
+                field: 'student.breakfast',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Comida',
+                field: 'student.lunch',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Cena',
+                field: 'student.dinner',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Tipo de sangre',
+                field: 'student.blood_type',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Medicinas',
+                field: 'student.drugs',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Alergias',
+                field: 'student.allergy',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Cirugias recientes',
+                field: 'student.recent_illness',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Bautizado',
+                field: 'student.baptized',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Religion',
+                field: 'student.religion',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Mexicano',
+                field: 'student.mexican',
+                sortable: true,
+                visible: false
+            },
+            {
+                title: 'Telefono de emergencia',
+                field: 'student.emergency_phone',
+                sortable: true,
+                visible: false
+            }, {
                 field: 'operate',
                 title: 'Operaciones',
                 align: 'center',
                 events: operateEvents,
                 formatter: this.operateFormatter()
-            }])
+            }]
+        ];
     }
 
     ngOnInit() {
@@ -51,7 +172,7 @@ export class StudentsComponent implements OnInit {
         }
         this.get();
         $('.bTable').bootstrapTable({
-            columns: this.service.columns,
+            columns: this.columns,
             showExport: true,
             exportDataType: 'all',
             exportTypes: ['excel'],
@@ -133,6 +254,7 @@ export class StudentsComponent implements OnInit {
 
     resetForm(form?: NgForm) {
         if (form) {
+            this.editing = false;
             form.reset();
             this.service.selected = new Student();
         }
