@@ -3,25 +3,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 mt-5">
-            <div aria-live="polite" aria-atomic="true" style="position: relative;z-index:999;">
-                <div style="position: absolute; top: 0px; right: 20px;">
-                    <div class="toast text-center" role="alert" aria-live="assertive" aria-atomic="true"
-                        style="min-width: 100px;max-width:200px">
-                        <div class="toast-header" style="justify-content: flex-end;">
-                            <strong class="mr-auto">Información</strong>
-                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" data-delay="3000"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="toast-body">
-                            See? Just like this.
-                        </div>
-                    </div>
-
-                </div>
-            </div>
             <router-outlet></router-outlet>
         </div>
+        <div id="snackbar"></div>
     </div>
 </div>

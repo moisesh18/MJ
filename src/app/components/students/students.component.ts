@@ -217,7 +217,8 @@ export class StudentsComponent implements OnInit {
         if (!this.editing) {
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    this.AuthService.toast(res.message)
+                    console.log(res)
+                    this.AuthService.toast(res.message.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -226,7 +227,8 @@ export class StudentsComponent implements OnInit {
         } else {
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    this.AuthService.toast(res.message)
+                    console.log(res)
+                    this.AuthService.toast(res.message.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -247,7 +249,7 @@ export class StudentsComponent implements OnInit {
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    this.AuthService.toast(res.message)
+                    this.AuthService.toast(res.message.message)
                 });
         }
     }

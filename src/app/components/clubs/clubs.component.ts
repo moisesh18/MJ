@@ -67,7 +67,7 @@ export class ClubsComponent implements OnInit {
         if (form.value._id) {
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    this.AuthService.toast(res.message)
+                    this.AuthService.toast(res.message.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -77,7 +77,7 @@ export class ClubsComponent implements OnInit {
             delete form.value._id;
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    this.AuthService.toast(res.message)
+                    this.AuthService.toast(res.message.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -104,7 +104,7 @@ export class ClubsComponent implements OnInit {
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    this.AuthService.toast(res.message)
+                    this.AuthService.toast(res.message.message)
                 });
         }
     }

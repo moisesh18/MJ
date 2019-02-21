@@ -29,11 +29,10 @@ export class AuthService {
     }
 
     toast(message, autohide?) {
-        $('.toast').toast({
-            "delay": 8000
-        })
-        $('.toast .toast-body').text(message);
-        $('.toast').toast('show')
+        var toast = document.getElementById("snackbar");
+        toast.className = "show";
+        toast.innerHTML = message;
+        setTimeout(function () { toast.className = toast.className.replace("show", ""); }, 8000);
     }
 
     CurrentUser(): Observable<Director> {
