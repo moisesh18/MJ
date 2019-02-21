@@ -106,7 +106,7 @@ export class DirectorsComponent implements OnInit {
             }
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    this.AuthService.toast(res.message.message)
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -116,7 +116,7 @@ export class DirectorsComponent implements OnInit {
             delete form.value._id;
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    this.AuthService.toast(res.message.message)
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();

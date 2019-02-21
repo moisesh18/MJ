@@ -202,7 +202,7 @@ export class StudentsComponent implements OnInit {
     }
 
     operateFormatter() {
-        if (this.AuthService.gisAdmin) {
+        if (this.AuthService.isAdmin) {
             return [
                 '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
             ].join('')
@@ -217,8 +217,7 @@ export class StudentsComponent implements OnInit {
         if (!this.editing) {
             this.service.post(form.value)
                 .subscribe((res: any) => {
-                    console.log(res)
-                    this.AuthService.toast(res.message.message)
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();
@@ -227,8 +226,7 @@ export class StudentsComponent implements OnInit {
         } else {
             this.service.put(form.value)
                 .subscribe((res: any) => {
-                    console.log(res)
-                    this.AuthService.toast(res.message.message)
+                    this.AuthService.toast(res.message)
                     if (res.success) {
                         this.resetForm(form);
                         this.get();

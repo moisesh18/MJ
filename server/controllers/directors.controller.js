@@ -47,7 +47,7 @@ DirectorController.createDirector = async (req, res) => {
         await single.save();
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e })
+        res.json({ message: e.message })
     }
 };
 
@@ -89,7 +89,7 @@ DirectorController.getDirector = async (req, res) => {
         single = await Director.findOne({ student: req.params.id });
         res.json(single);
     } catch (e) {
-        res.json({ message: e })
+        res.json({ message: e.message })
     }
 }
 //$2a$10$eIFKiU.aulBmFqrhIFWfQOAsmas1m2edLSkK1RU2vkbxoyhKV4IMG
@@ -109,7 +109,7 @@ DirectorController.editDirector = async (req, res) => {
         await Director.findByIdAndUpdate(single._id, { $set: single }, { runValidators: false });
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e })
+        res.json({ message: e.message })
     }
 }
 
@@ -118,7 +118,7 @@ DirectorController.deleteDirector = async (req, res) => {
         await Director.findByIdAndRemove(req.params.id);
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e })
+        res.json({ message: e.message })
     }
 }
 

@@ -15,7 +15,7 @@ CycleController.create = async (req, res) => {
         await single.save();
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e.message })
     }
 };
 
@@ -24,7 +24,7 @@ CycleController.getCycle = async (req, res) => {
         single = await Cycle.find();
         res.json(single);
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e.message })
     }
 
 }
@@ -42,7 +42,7 @@ CycleController.edit = async (req, res) => {
         await Cycle.findByIdAndUpdate(single._id, { $set: single }, { new: true });
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e.message })
     }
 }
 
@@ -51,7 +51,7 @@ CycleController.delete = async (req, res) => {
         await Cycle.findByIdAndRemove(req.params.id);
         res.json({ success: true, message: "Completado" })
     } catch (e) {
-        res.json({ message: e})
+        res.json({ message: e.message })
     }
 }
 
