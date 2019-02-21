@@ -26,11 +26,9 @@ export class TokenInterceptor implements HttpInterceptor {
                     succ => {
                     },
                     err => {
-                        if (err.status === 401 || err.status === 403) {
-                            alert("No autorizado");
-                            authService.removeToken();
-                            this.router.navigate(['/']);
-                        }
+                        authService.removeToken();
+                        this.router.navigate(['/']);
+                        authService.toast("Error de comunicaciones. Intenta cambiar de red")
                     }
                 )
             );
