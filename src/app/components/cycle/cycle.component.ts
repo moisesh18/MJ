@@ -114,7 +114,7 @@ export class CycleComponent implements OnInit {
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    this.AuthService.toast(res.message.message)
+                    this.AuthService.toast(res.message)
                 });
         }
     }

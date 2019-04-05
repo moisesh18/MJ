@@ -95,6 +95,7 @@ export class ClubsComponent implements OnInit {
         this.service.get()
             .subscribe(res => {
                 var data = res as Club[]
+                console.log(data)
                 $('.bTable').bootstrapTable("load", data)
             });
     }
@@ -104,7 +105,7 @@ export class ClubsComponent implements OnInit {
             this.service.delete(_id)
                 .subscribe((res: any) => {
                     this.get();
-                    this.AuthService.toast(res.message.message)
+                    this.AuthService.toast(res.message)
                 });
         }
     }

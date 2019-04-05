@@ -18,4 +18,13 @@ const ClubsSchema = new Schema({
     },
 });
 
+ClubsSchema.virtual('money').get(async function () {
+    return this.getMoney(function (err, dogs) {
+        console.log(dogs); // woof
+    });
+});
+
+
+ClubsSchema.set('toJSON', { virtuals: true });
+
 module.exports = mongoose.model('Clubs', ClubsSchema);
