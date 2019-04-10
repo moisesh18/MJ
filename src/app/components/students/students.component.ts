@@ -7,7 +7,6 @@ import { Student } from '../../models/student';
 import { NgForm } from '@angular/forms';
 import { async } from '@angular/core/testing';
 
-declare var jquery: any;
 declare var $: any;
 declare var edit: boolean;
 
