@@ -1,4 +1,4 @@
-<div class="row" *ngIf="AuthService.gisAdmin">
+<div class="row" *ngIf="AuthService.isAdmin">
   <form id="form" #form="ngForm" class="col-md-8 offset-md-2">
     <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="service.selected._id">
     <div class="form-row">

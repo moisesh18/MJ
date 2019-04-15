@@ -40,16 +40,16 @@ export class AuthService {
   }
 
 
-  get gisAdmin() {
+  get isAdmin() {
     return this.user && this.user.role === "admin";
   }
 
-  get gisDirector() {
-    return this.user && this.user.role === "director" || this.gisAdmin;
+  get isDirector() {
+    return this.user && this.user.role === "director" || this.isAdmin;
   }
 
-  get gisSecretary() {
-    return this.user && this.user.role === "secretario" || this.gisDirector;
+  get isSecretary() {
+    return this.user && this.user.role === "secretario" || this.isDirector;
   }
 
   get iAm() {
