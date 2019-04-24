@@ -145,6 +145,12 @@ export class EnrollsService {
             field: 'student.emergency_phone',
             sortable: true,
             visible: false
+        },
+        {
+            title: 'Club',
+            field: 'club.name',
+            sortable: true,
+            visible: true
         }]
         ];
 
