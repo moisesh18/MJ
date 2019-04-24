@@ -6,6 +6,7 @@
         <ng-select [virtualScroll]="true" name="role" #role="ngModel" [(ngModel)]="service.selected.role"
           autocomplete="off" placeholder="Selecciona el puesto">
           <ng-option [value]="'admin'">Administrador</ng-option>
+          <ng-option [value]="'mj'">Directiva MJ</ng-option>
           <ng-option [value]="'director'">Director</ng-option>
           <ng-option [value]="'secretario'">Secretario</ng-option>
         </ng-select>
