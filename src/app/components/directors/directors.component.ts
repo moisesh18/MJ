@@ -90,9 +90,13 @@ export class DirectorsComponent implements OnInit {
     }
 
     operateFormatter() {
-        return [
-            '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
-        ].join('')
+        if (this.AuthService.isAdmin) {
+            return [
+                '<a href="javascript:void(0)" class="edit" *ngIf="false"><i class="material-icons">edit</i></a><a href="javascript:void(0)" class="delete"><i class="material-icons">delete</i></a>'
+            ].join('')
+        } else {
+            return [''].join('')
+        }
     }
 
     add(form?: NgForm) {

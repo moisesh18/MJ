@@ -7,8 +7,7 @@ EnrollController.get = async (req, res) => {
     if (req.user.role == "admin") {
         single = await Enroll.find()
             .populate({
-                path: 'student',
-                select: "first_name last_name"
+                path: 'student'
             })
             .populate({
                 path: 'club',
@@ -21,8 +20,7 @@ EnrollController.get = async (req, res) => {
     } else {
         single = await Enroll.find({ club: req.user.club })
             .populate({
-                path: 'student',
-                select: "first_name last_name"
+                path: 'student'
             })
             .populate({
                 path: 'club',
