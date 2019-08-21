@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="form-group col-sm-12">
-        <input type="text" class="form-control" name="birthday" #birthday="ngModel"
+        <input type="date" class="form-control" name="birthday" #birthday="ngModel"
           [(ngModel)]="service.selected.birthday" placeholder="Fecha de nacimiento">
 
       </div>
@@ -130,7 +130,7 @@
       <div class="form-group col-sm-12">
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text">Mediamentos</span>
+            <span class="input-group-text">Medicamentos</span>
           </div> <textarea name="drugs" #drugs="ngModel" [(ngModel)]="service.selected.drugs"
             class="materialize-textarea" class="form-control"></textarea>
         </div>

@@ -216,6 +216,8 @@ export class StudentsComponent implements OnInit {
   add(form: NgForm) {
     if (form.valid) {
       if (!this.editing) {
+        form.value.first_name = form.value.first_name.toUpperCase();
+        form.value.last_name = form.value.last_name.toUpperCase();
         this.service.post(form.value)
           .subscribe((res: any) => {
             this.AuthService.toast(res.message)
