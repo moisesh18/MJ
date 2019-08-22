@@ -151,7 +151,13 @@ export class EnrollsService {
             field: 'club.name',
             sortable: true,
             visible: true
-        }]
+        },
+        {
+            title: 'Pago de inscripción',
+            field: 'fees',
+            sortable: true
+        }
+        ]
         ];
 
     }

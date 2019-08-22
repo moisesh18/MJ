@@ -29,14 +29,21 @@ export class EnrollsComponent implements OnInit {
         self.delete(row._id)
       }
     }
-    this.service.columns = Object.assign(this.service.columns[0],
-      [{
-        field: 'operate',
-        title: 'Operaciones',
-        align: 'center',
-        events: operateEvents,
-        formatter: this.operateFormatter()
-      }])
+    this.service.columns[0].push({
+      field: 'operate',
+      title: 'Operaciones',
+      align: 'center',
+      events: operateEvents,
+      formatter: this.operateFormatter()
+    });
+    // this.service.columns = Object.assign(this.service.columns[0],
+    //   [{
+    //     field: 'operate',
+    //     title: 'Operaciones',
+    //     align: 'center',
+    //     events: operateEvents,
+    //     formatter: this.operateFormatter()
+    //   }])
   }
 
   async ngOnInit() {
