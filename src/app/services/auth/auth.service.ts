@@ -52,8 +52,12 @@ export class AuthService {
     return this.user && this.user.role === "director" || this.isMJ;
   }
 
+  get isTreasurer() {
+    return this.user && this.user.role === "tesorero" || this.isDirector;
+  }
+
   get isSecretary() {
-    return this.user && this.user.role === "secretario" || this.isDirector;
+    return this.user && this.user.role === "secretario" || this.isTreasurer;
   }
 
   get iAm() {

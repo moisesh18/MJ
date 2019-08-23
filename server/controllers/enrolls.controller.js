@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 let single = {};
 
 EnrollController.get = async (req, res) => {
-    if (req.user.role == "admin") {
+    if (req.user.role == "admin" || req.user.role == "tesorero") {
         single = await Enroll.find()
             .populate({
-                path: 'student'
+                path: 'student' 
             })
             .populate({
                 path: 'club',
@@ -45,7 +45,11 @@ EnrollController.create = async (req, res) => {
 };
 
 EnrollController.edit = async (req, res) => {
+    
+    if (req.params.club._id != req.user.club._id) {
+        res.json({ message: "No puedes editar un inscrito que no es de tu club" })};
     try {
+        
         single = new Enroll(req.body);
         await Enroll.findByIdAndUpdate(single._id, { $set: single }, { new: true });
         res.json({ success: true, message: "Completado" })
