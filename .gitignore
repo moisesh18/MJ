@@ -38,3 +38,6 @@ testem.log
 Thumbs.db
 server/database.js
 package-lock.json
+
+# Environment variables
+.env

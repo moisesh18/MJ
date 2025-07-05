@@ -1,12 +1,18 @@
+require('dotenv').config();
+
 // In this file you can configure migrate-mongo
+
+const user = encodeURIComponent(process.env.MONGO_USER || "");
+const pass = encodeURIComponent(process.env.MONGO_PASSWORD || "");
+const host = process.env.MONGO_HOST || "cluster0.v823j3u.mongodb.net";
+// Parámetros de conexión extra; se pueden sobreescribir si lo necesitas.
+const params = process.env.MONGO_PARAMS || "?retryWrites=true&w=majority&appName=Cluster0";
 
 const config = {
     mongodb: {
-        // TODO Change (or review) the url to your MongoDB:
-        url: 'mongodb://localhost',
+        url: `mongodb+srv://${user}:${pass}@${host}/${params}`,
 
-        // TODO Change this to your database name:
-        databaseName: "mj",
+        databaseName: process.env.MONGO_DB || "mj",
 
         options: {
             useNewUrlParser: true // removes a deprecation warning when connecting
