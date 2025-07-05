@@ -4,13 +4,13 @@ const bcrypt = require('bcrypt-nodejs');
 const Club = require('../models/club');
 const Director = require('../models/director');
 
-(async () => {
+const createAdmin = async () => {
     try {
         // Verifica si ya existe un admin
         const existingAdmin = await Director.findOne({ role: 'admin' });
         if (existingAdmin) {
             console.log('Ya existe un usuario admin. Abortando.');
-            return process.exit(0);
+            return 'Ya existe un usuario admin.';
         }
 
         // Crea un club genérico si no existe ninguno
@@ -31,12 +31,26 @@ const Director = require('../models/director');
             club: club._id
         });
 
-        console.log('Usuario admin creado con éxito. Credenciales:');
-        console.log('usuario: admin');
-        console.log('password:', plainPassword);
+        console.log('Usuario admin creado con éxito');
+        return `Usuario admin creado. password: ${plainPassword}`;
     } catch (err) {
         console.error(err);
-    } finally {
-        mongoose.disconnect();
+        throw err;
     }
-})(); 
+};
+
+module.exports = createAdmin;
+
+// Si se ejecuta desde CLI, correr y luego salir.
+if (require.main === module) {
+    createAdmin()
+        .then(msg => {
+            console.log(msg);
+            mongoose.disconnect();
+            process.exit(0);
+        })
+        .catch(err => {
+            mongoose.disconnect();
+            process.exit(1);
+        });
+} 

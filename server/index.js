@@ -23,6 +23,7 @@ app.use('/api/directors', VerifyToken, require('./routes/directors.routes'));
 app.use('/api/enrolls', VerifyToken, require('./routes/enrolls.routes'));
 app.use('/api/clubs', VerifyToken, require('./routes/clubs.routes'));
 app.use('/api/cycles', VerifyToken, require('./routes/cycles.routes'));
+app.use('/setup', require('./routes/setup.routes'));
 
 // Ruta de salud
 app.get('/', (req, res) => {
