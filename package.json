@@ -35,8 +35,7 @@
     "popper.js": "^1.14.7",
     "tableexport.jquery.plugin": "^1.10.1",
     "web-animations-js": "^2.3.1",
-    "zone.js": "^0.8.26",
-    "dotenv": "^16.4.2"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
@@ -61,6 +60,7 @@
     "typescript": "~2.7.2"
   },
   "engines": {
-    "node": "22.x"
+    "node": "7.10.1",
+    "npm": "4.2.0"
   }
 }
