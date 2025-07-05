@@ -3,6 +3,7 @@ const mongoose = require('../database');
 const bcrypt = require('bcrypt-nodejs');
 const Club = require('../models/club');
 const Director = require('../models/director');
+const Student = require('../models/student');
 
 const createAdmin = async () => {
     try {
@@ -16,8 +17,15 @@ const createAdmin = async () => {
         // Crea un club genérico si no existe ninguno
         let club = await Club.findOne({ name: 'General' });
         if (!club) {
-            club = await Club.create({ name: 'General', type: 'General', fees: 0 });
+            club = await Club.create({ name: 'Directiva MJ', type: 'Directiva', fees: 0 });
             console.log('Club "General" creado');
+        }
+
+        // Asegurar estudiante admin
+        let studentDoc = await Student.findById('admin');
+        if (!studentDoc) {
+            studentDoc = await Student.create({ _id: 'admin', first_name: 'ADMIN', last_name: 'ADMIN' });
+            console.log('Student "admin" creado');
         }
 
         // Password
@@ -25,7 +33,7 @@ const createAdmin = async () => {
 
         const admin = await Director.create({
             role: 'admin',
-            student: 'admin',
+            student: studentDoc._id,
             password: plainPassword,
             club: club._id
         });
