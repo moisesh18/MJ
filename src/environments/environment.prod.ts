@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    baseUrl: 'https://mj.moiseshernandez.net'  
+    baseUrl: 'https://mj-351e.onrender.com'  
   };
   
