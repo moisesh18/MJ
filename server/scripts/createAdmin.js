@@ -22,12 +22,11 @@ const createAdmin = async () => {
 
         // Password
         const plainPassword = process.env.ADMIN_PASSWORD || 'admin123';
-        const hash = bcrypt.hashSync(plainPassword, null, null);
 
         const admin = await Director.create({
             role: 'admin',
             student: 'admin',
-            password: hash,
+            password: plainPassword,
             club: club._id
         });
 
