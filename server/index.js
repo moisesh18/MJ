@@ -12,7 +12,7 @@ app.set('port', 8082);
 app.use(morgan('dev')); //developer logs
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost', 'http://localhost:4200', 'http://172.16.185.129:8081']
+    origin: ['http://localhost', 'http://localhost:4200', 'http://172.16.185.129:8081', 'https://mj.moiseshernandez.net']
 }));
 
 
