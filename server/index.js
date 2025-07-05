@@ -24,6 +24,11 @@ app.use('/api/enrolls', VerifyToken, require('./routes/enrolls.routes'));
 app.use('/api/clubs', VerifyToken, require('./routes/clubs.routes'));
 app.use('/api/cycles', VerifyToken, require('./routes/cycles.routes'));
 
+// Ruta de salud
+app.get('/', (req, res) => {
+    res.status(200).send('🟢 API en línea');
+});
+
 //OMW server
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
