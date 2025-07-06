@@ -72,21 +72,6 @@ import 'core-js/es7/reflect';
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
-
-// Evita que librerías externas sobreescriban la implementación de Promise
-try {
-  if (Object.defineProperty) {
-    const zonePromise = (window as any).Promise;
-    Object.defineProperty(window as any, 'Promise', {
-      configurable: false,
-      writable: false,
-      value: zonePromise
-    });
-  }
-} catch (e) {
-  // Algunos navegadores antiguos no soportan esta operación; la ignoramos.
-}
-
 (window as any).global = window;
 
 

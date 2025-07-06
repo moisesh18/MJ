@@ -18,8 +18,6 @@ export class MainComponent implements OnInit {
     }
 
     doLogin(form?: NgForm) {
-        // Mostrar feedback inmediato al usuario mientras se procesa la autenticación
-        this.AuthService.toast("Cargando... (puede tomar 15 segs)");
         this.AuthService.doLogin(form);
     }
 
