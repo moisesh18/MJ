@@ -18,6 +18,7 @@ export class MainComponent implements OnInit {
     }
 
     doLogin(form?: NgForm) {
+        this.AuthService.toast("Cargando... (puede tomar 15 segs)");
         this.AuthService.doLogin(form);
     }
 
